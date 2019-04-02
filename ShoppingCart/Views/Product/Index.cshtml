@@ -11,8 +11,7 @@
 <section>
     <div class="container" style="padding: 40px 0;">
         <div class="input-group">
-            <input type="text" class="form-control" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
-            <span class="input-group-addon" id="basic-addon2">Search</span>
+            <input type="text" class="form-control" name="search" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">            
         </div>
     </div>
 </section>
@@ -36,25 +35,3 @@
     </div>
 </section>
 
-<script type="text/javascript">
-
-    var count=0;
-
-    var products = [];
-
-    function AddtoCart(val)
-    {
-        count = parseInt(count) + 1;
-        
-        products.push(val);
-
-        localStorage.setItem("ProductIDs", JSON.stringify(products));
-
-        var product_list = JSON.parse(localStorage.getItem("ProductIDs"));
-
-        console.log(product_list);
-
-        document.getElementById("cart_count").innerHTML = product_list.length;
-    }
-
-</script>

@@ -56,4 +56,26 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+<script type="text/javascript">
+
+    var count=0;
+
+    var products = [];
+
+    function AddtoCart(val)
+    {
+        count = parseInt(count) + 1;
+
+        products.push(val);
+
+        localStorage.setItem("ProductIDs", JSON.stringify(products));
+
+        var product_list = JSON.parse(localStorage.getItem("ProductIDs"));
+
+        //console.log(product_list);
+
+        document.getElementById("cart_count").innerHTML = product_list.length;
+    }
+
+</script>
 </html>
