@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Data.SqlClient;
 
 namespace ShoppingCart.Models
 {
-    public class Product : DatabaseConnection
+    public class Product
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -14,35 +13,20 @@ namespace ShoppingCart.Models
         public string Description { get; set; }
         public string Image { get; set; }
 
-        public List<Product> ListAll()
+    }
+
+    public class ProductDatabase:DatabaseConnection
+    {
+        public static Product ProductDetailByProductID(int ProductId)
         {
-            List<Product> products = new List<Product>();
+            Product product = null;
 
-            string sql = "SELECT * FROM Product";
-
-            SqlConnection con = GetConnection();
-
-            using (con)
+            using (SqlConnection connection = new SqlConnection(connection_string))
             {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(sql, con);
-
-                SqlDataReader data = cmd.ExecuteReader();
-
-                while (data.Read())
-                {
-                    products.Add(new Product {
-
-                        ProductId = Convert.ToInt32(data["ProductId"]),
-                        ProductName = data["ProductName"].ToString(),
-                        Price = Convert.ToDouble(data["Price"]),
-                        Description = data["Description"].ToString(),
-                        Image = data["Image"].ToString()
-                    });
-                }
+                connection.Open();
+                
+                string SqlProduct = @"SELECT "
             }
-
-            return products;
         }
 
         public List<Product> ProductCart(string CartSession)

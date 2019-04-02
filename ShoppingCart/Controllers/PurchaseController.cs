@@ -11,12 +11,18 @@ namespace ShoppingCart.Controllers
         // GET: Purchase
         public ActionResult ViewItem()
         {
+
+
+        
+
             return View();
         }
 
-        public ActionResult BackToGall()
+        public ActionResult ViewPurchaseID()
         {
             return View();
         }
+
+
     }
 }

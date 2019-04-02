@@ -11,4 +11,6 @@ namespace ShoppingCart.Models
         public int UserId { get; set; }
         public DateTime PurchaseDate { get; set; }
     }
+
+
 }
