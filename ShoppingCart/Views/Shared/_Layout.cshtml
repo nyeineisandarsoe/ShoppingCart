@@ -19,7 +19,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="padding-bottom: 0;">
+<body style="padding-bottom: 0;" onload="DisplayQuantity();">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -36,7 +36,7 @@
                     <li>@Html.ActionLink("My Purchases", "Index", "Purchase")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart <span id="cart_count"></span></a></li>
+                    <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
                     <li><a href="/Login">Login</a></li>
 
                 </ul>
@@ -56,4 +56,31 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+<script type="text/javascript">
+
+    
+    var products = [];
+    function AddtoCart(val)
+    {
+        if (sessionStorage.getItem("ProductIds") !== null)
+        {
+            products = JSON.parse(sessionStorage.getItem("ProductIds"));
+        }
+
+        products.push(val);
+
+        sessionStorage.setItem("ProductIds", JSON.stringify(products));
+
+        //console.log(products.length);
+
+        DisplayQuantity();
+    }
+
+    function DisplayQuantity()
+    {
+        var products = JSON.parse(sessionStorage.getItem("ProductIds"));
+        document.getElementById("cart_count").innerHTML = products.length;
+    }
+
+</script>
 </html>

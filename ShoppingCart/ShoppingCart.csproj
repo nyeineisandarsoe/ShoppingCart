@@ -178,6 +178,7 @@
    
     <Content Include="Views\Purchase\ViewItem.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

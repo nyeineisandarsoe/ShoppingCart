@@ -15,5 +15,12 @@ namespace ShoppingCart.Controllers
             ViewData["ProductData"] = product.ListAll();
             return View();
         }
+
+        public ActionResult Search()
+        {
+            Product product = new Product();
+            ViewData["ProductsByName"] = product.ListProductByName(Request["search"]);
+            return View();
+        }
     }
 }
