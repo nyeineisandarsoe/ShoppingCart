@@ -14,7 +14,8 @@ namespace ShoppingCart.Models
         {
             SqlConnection connection = new SqlConnection(connection_string);
 
-            return connection;
+            return connection; 
+
         }
     }
 }
