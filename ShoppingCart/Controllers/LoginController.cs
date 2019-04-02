@@ -13,7 +13,7 @@ namespace ShoppingCart.Controllers
             return View();
         }
 
-        public ActionResult Authenticate(string Username, string Password)
+       /*public ActionResult Authenticate(string Username, string Password)
         {
             if ()
             {
@@ -30,7 +30,7 @@ namespace ShoppingCart.Controllers
 
             //invalid redirect to View("Main") with JS error message
         }
-
+        */
         public ActionResult Logout(string sessionId)
         {
             //clear sessionId
