@@ -13,23 +13,23 @@ namespace ShoppingCart.Controllers
             return View();
         }
 
-        public ActionResult Authenticate(string Username, string Password)
-        {
-            if ()
-            {
-                string sessionId = Guid.NewGuid().ToString();
-            }
-            else
-            {
-                return RedirectToAction("InvalidUser");
-            }
-            //verify username and password
-            //create session id
-            //update session id to database
-            //valid redirect to Gallery 
+        //public ActionResult Authenticate(string Username, string Password)
+        //{
+        //    if ()
+        //    {
+        //        string sessionId = Guid.NewGuid().ToString();
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("InvalidUser");
+        //    }
+        //    //verify username and password
+        //    //create session id
+        //    //update session id to database
+        //    //valid redirect to Gallery 
 
-            //invalid redirect to View("Main") with JS error message
-        }
+        //    //invalid redirect to View("Main") with JS error message
+        //}
 
         public ActionResult Logout(string sessionId)
         {
