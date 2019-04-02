@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ShoppingCart.Models;
 
 namespace ShoppingCart.Controllers
 {
@@ -15,24 +16,24 @@ namespace ShoppingCart.Controllers
 
         public ActionResult Authenticate(string Username, string Password)
         {
-            if ()
+            User user = new User();
+            bool isValidUser = user.validateUserbyUsername(Username, Password);
+            if (isValidUser)
             {
                 string sessionId = Guid.NewGuid().ToString();
+                Session["sessionId"] = sessionId;
+                return RedirectToAction("","");
             }
             else
             {
                 return RedirectToAction("InvalidUser");
             }
-            //verify username and password
-            //create session id
-            //update session id to database
-            //valid redirect to Gallery 
-
-            //invalid redirect to View("Main") with JS error message
+            
         }
 
         public ActionResult Logout(string sessionId)
         {
+            Session["sessionId"] = null;
             //clear sessionId
             //clear cart selection
 
