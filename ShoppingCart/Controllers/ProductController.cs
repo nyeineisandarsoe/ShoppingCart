@@ -19,7 +19,7 @@ namespace ShoppingCart.Controllers
         public ActionResult Search()
         {
             Product product = new Product();
-            ViewData["ProductsByName"] = product.ListProductByName("paypal");
+            ViewData["ProductsByName"] = product.ListProductByName(Request["search"]);
             return View();
         }
     }
