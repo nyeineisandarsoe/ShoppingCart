@@ -1,19 +1,39 @@
-﻿@{
+﻿@using ShoppingCart.Models;
+@{
     ViewBag.Title = "Cart";
     ViewBag.ActiveCart = "active";
 }
 
-<section>
-    <div class="row" style="padding: 50px 0;">
-        <div class="col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="images/paypal.png" alt="Pay Pal">
-                <div class="caption">
-                    <h3>tt label</h3>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                </div>
-            </div>
+@{
+    var products = (List<Product>)ViewData["ProductCart"];
+    }
+    <div class="fluid-container">
+        <h2>Cart</h2>
+        <div class="pull-right" style="padding-top: 30px;">
+            <a href="/" class="btn btn-primary">Continue Shopping</a>
+            <a href="/Cart" class="btn btn-success">CheckOut</a>
         </div>
     </div>
-</section>
+    <section>
+        <div class="row" style="padding: 50px 0;">
+            @foreach (var product in products)
+            {
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail" style="position: relative;">
+                    <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;"></span>
+                    <img src="@product.Image" alt="Pay Pal">
+                    <div class="caption">
+                        <h3>@product.ProductName</h3>
+                        <p>$@product.Price</p>
+
+                        <p>@product.Description</p>
+                        <div class="input-group">
+                            <span class="input-group-addon">Quantity</span>
+                            <input type="number" class="form-control" id="quantity" min="1" value="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </section>

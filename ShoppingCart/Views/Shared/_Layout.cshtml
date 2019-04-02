@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/cart.png" sizes="16x16">
     <title>@ViewBag.Title - Shopping Cart</title>
+    <style>
+        h2 {
+            display: inline-block;
+            padding-top: 7px;
+        }
+        .glyphicon-remove:hover {
+            cursor: pointer;
+            opacity: 0.5;
+        }
+
+    </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,7 +36,7 @@
                     <li>@Html.ActionLink("My Purchases", "Index", "Purchase")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart</a></li>
+                    <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart <span id="cart_count"></span></a></li>
                     <li><a href="/Login">Login</a></li>
 
                 </ul>
