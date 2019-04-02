@@ -48,16 +48,13 @@
         
         products.push(val);
 
-        localStorage.setItem("ProductIDs", products);
+        localStorage.setItem("ProductIDs", JSON.stringify(products));
 
-        var product_list = [];
-
-        product_list = localStorage.getItem("ProductIDs");
+        var product_list = JSON.parse(localStorage.getItem("ProductIDs"));
 
         console.log(product_list);
-        console.log(product_list.length);
 
-        document.getElementById("cart_count").innerHTML = productIDs.length;
+        document.getElementById("cart_count").innerHTML = product_list.length;
     }
 
 </script>
