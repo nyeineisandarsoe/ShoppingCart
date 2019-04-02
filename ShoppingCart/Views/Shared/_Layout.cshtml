@@ -19,7 +19,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body style="padding-bottom: 0;">
+<body style="padding-bottom: 0;" onload="DisplayQuantity();">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -58,23 +58,28 @@
 </body>
 <script type="text/javascript">
 
-    var count=0;
-
+    
     var products = [];
-
     function AddtoCart(val)
     {
-        count = parseInt(count) + 1;
+        if (sessionStorage.getItem("ProductIds") !== null)
+        {
+            products = JSON.parse(sessionStorage.getItem("ProductIds"));
+        }
 
         products.push(val);
 
-        localStorage.setItem("ProductIDs", JSON.stringify(products));
+        sessionStorage.setItem("ProductIds", JSON.stringify(products));
 
-        var product_list = JSON.parse(localStorage.getItem("ProductIDs"));
+        //console.log(products.length);
 
-        //console.log(product_list);
+        DisplayQuantity();
+    }
 
-        document.getElementById("cart_count").innerHTML = product_list.length;
+    function DisplayQuantity()
+    {
+        var products = JSON.parse(sessionStorage.getItem("ProductIds"));
+        document.getElementById("cart_count").innerHTML = products.length;
     }
 
 </script>
