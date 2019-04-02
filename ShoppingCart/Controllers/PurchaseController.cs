@@ -11,12 +11,19 @@ namespace ShoppingCart.Controllers
         // GET: Purchase
         public ActionResult ViewItem()
         {
+
+
+            ViewData[""] = ;
+            ViewData[""] = ;
+            ViewData[""] = ;
+
+
             return View();
         }
 
         public ActionResult BackToGall()
         {
-            return View();
+            return RedirectResult("","Gallery");//Not sure the actionName
         }
     }
 }
