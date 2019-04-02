@@ -13,7 +13,7 @@ namespace ShoppingCart.Controllers
         public ActionResult Index()
         {
             Product product = new Product();
-            string CartSession = "2,7";
+            string CartSession = "2,3";
             ViewData["ProductCart"] = product.ProductCart(CartSession);
             return View();
         }
