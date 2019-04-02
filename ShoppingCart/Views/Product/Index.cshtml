@@ -50,9 +50,14 @@
 
         localStorage.setItem("ProductIDs", products);
 
-        document.getElementById("cart_count").innerHTML = products.length;
+        var product_list = [];
 
-        console.log(localStorage);
+        product_list = localStorage.getItem("ProductIDs");
+
+        console.log(product_list);
+        console.log(product_list.length);
+
+        document.getElementById("cart_count").innerHTML = productIDs.length;
     }
 
 </script>
