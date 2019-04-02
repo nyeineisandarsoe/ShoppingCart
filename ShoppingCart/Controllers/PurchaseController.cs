@@ -9,7 +9,12 @@ namespace ShoppingCart.Controllers
     public class PurchaseController : Controller
     {
         // GET: Purchase
-        public ActionResult Index()
+        public ActionResult ViewItem()
+        {
+            return View();
+        }
+
+        public ActionResult BackToGall()
         {
             return View();
         }

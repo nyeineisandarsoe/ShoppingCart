@@ -173,13 +173,13 @@
     <Content Include="Views\Login\About.cshtml" />
     <Content Include="Views\Login\Contact.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Purchase\ViewItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ActiCode\" />
     <Folder Include="Views\Cart\" />
     <Folder Include="Views\Gallery\" />
-    <Folder Include="Views\Purchase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
