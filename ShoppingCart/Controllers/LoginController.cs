@@ -8,22 +8,39 @@ namespace ShoppingCart.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Main()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Authenticate(string Username, string Password)
         {
-            ViewBag.Message = "Your application description page.";
+            if ()
+            {
+                string sessionId = Guid.NewGuid().ToString();
+            }
+            else
+            {
+                return RedirectToAction("InvalidUser");
+            }
+            //verify username and password
+            //create session id
+            //update session id to database
+            //valid redirect to Gallery 
 
-            return View();
+            //invalid redirect to View("Main") with JS error message
         }
 
-        public ActionResult Contact()
+        public ActionResult Logout(string sessionId)
         {
-            ViewBag.Message = "Your contact page.";
+            //clear sessionId
+            //clear cart selection
 
+            return View("Main");
+        }
+
+        public ActionResult InvalidUser()
+        {
             return View();
         }
 
