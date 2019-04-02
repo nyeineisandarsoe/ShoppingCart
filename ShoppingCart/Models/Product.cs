@@ -44,5 +44,36 @@ namespace ShoppingCart.Models
 
             return products;
         }
+
+        public List<Product> ProductCart(string CartSession)
+        {
+            List<Product> products = new List<Product>();
+            
+            string sql = "SELECT * FROM Product WHERE ProductId In ("+CartSession+")";
+            SqlConnection con = GetConnection();
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+
+                SqlDataReader data = cmd.ExecuteReader();
+
+                while (data.Read())
+                {
+                    products.Add(new Product
+                    {
+
+                        ProductId = Convert.ToInt32(data["ProductId"]),
+                        ProductName = data["ProductName"].ToString(),
+                        Price = Convert.ToDouble(data["Price"]),
+                        Description = data["Description"].ToString(),
+                        Image = data["Image"].ToString()
+                    });
+                }
+            }
+
+            return products;
+        }
     }
 }
