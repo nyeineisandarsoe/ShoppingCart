@@ -12,5 +12,21 @@ namespace ShoppingCart.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+
+    }
+
+    public class ProductDatabase:DatabaseConnection
+    {
+        public static Product ProductDetailByProductID(int ProductId)
+        {
+            Product product = null;
+
+            using (SqlConnection connection = new SqlConnection(connection_string))
+            {
+                connection.Open();
+                
+                string SqlProduct = @"SELECT "
+            }
+        }
     }
 }

@@ -13,17 +13,15 @@ namespace ShoppingCart.Controllers
         {
 
 
-            ViewData[""] = ;
-            ViewData[""] = ;
-            ViewData[""] = ;
-
+        
 
             return View();
         }
 
-        public ActionResult BackToGall()
+        public ActionResult ViewPurchaseID()
         {
-            return RedirectResult("","Gallery");//Not sure the actionName
+            return View();
         }
+
     }
 }
