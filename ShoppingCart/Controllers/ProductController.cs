@@ -12,6 +12,8 @@ namespace ShoppingCart.Controllers
         // GET: Gallery
         public ActionResult Index()
         {
+            Product product = new Product();
+            ViewBag["ProductData"] = product.ListAll();
             return View();
         }
     }
