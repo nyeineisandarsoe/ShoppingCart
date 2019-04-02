@@ -1,0 +1,37 @@
+﻿@using ShoppingCart.Models;
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    var products = (List<Product>)ViewData["ProductData"];
+}
+<h2>Index</h2>
+
+
+<section>
+    <div class="container" style="padding: 40px 0;">
+        <div class="input-group">
+            <input type="text" class="form-control" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">Search</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="row">
+        @foreach (var product in products)
+        {
+            <div class="col-sm-6 col-md-3">
+                <div class="thumbnail">
+                    <img src="~/@product.Image" alt="Pay Pal">
+                    <div class="caption">
+                        <h3>@product.ProductName</h3>
+                        <p>@product.Description</p>
+                        <p><button type="button" class="btn btn-success" value="@product.ProductId">Add to Cart</button></p>
+                    </div>
+                </div>
+            </div>
+         }
+            
+    </div>
+</section>
