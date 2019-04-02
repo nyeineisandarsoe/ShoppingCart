@@ -17,5 +17,10 @@ namespace ShoppingCart.Controllers
             ViewData["ProductCart"] = product.ProductCart(CartSession);
             return View();
         }
+
+        public ActionResult Checkout()
+        {
+            return View();
+        }
     }
 }
