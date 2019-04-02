@@ -15,18 +15,4 @@ namespace ShoppingCart.Models
 
     }
 
-    public class ProductDatabase:DatabaseConnection
-    {
-        public static Product ProductDetailByProductID(int ProductId)
-        {
-            Product product = null;
-
-            using (SqlConnection connection = new SqlConnection(connection_string))
-            {
-                connection.Open();
-                
-                string SqlProduct = @"SELECT "
-            }
-        }
-    }
 }
