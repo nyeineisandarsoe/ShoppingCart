@@ -9,11 +9,10 @@ namespace ShoppingCart.Controllers
 {
     public class ProductController : Controller
     {
-        // GET: Gallery
         public ActionResult Index()
         {
             Product product = new Product();
-            ViewBag["ProductData"] = product.ListAll();
+            ViewData["ProductData"] = product.ListAll();
             return View();
         }
     }
