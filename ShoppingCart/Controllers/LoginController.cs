@@ -9,7 +9,7 @@ namespace ShoppingCart.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Main()
         {
             return View();
         }

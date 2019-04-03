@@ -25,7 +25,7 @@ namespace ShoppingCart.Models
                 conn.Open();
                 string sqlStatement = @"Select Password
                                             From [User]
-                                                where UserName =  " + Username;
+                                                where UserName =  '" + Username + "'";
                 SqlCommand Cmd = new SqlCommand(sqlStatement, conn);
                 SqlDataReader Reader = Cmd.ExecuteReader();
 

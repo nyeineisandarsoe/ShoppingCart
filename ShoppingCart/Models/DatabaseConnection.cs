@@ -8,7 +8,7 @@ namespace ShoppingCart.Models
 {
     public class DatabaseConnection
     {
-        private string connection_string = "SERVER=LAPTOP-AFJE04OK; DATABASE=ShoppingCart; Integrated Security=true";
+        private string connection_string = "SERVER=KOKOSITE; DATABASE=ShoppingCart; Integrated Security=true";
 
         public SqlConnection GetConnection()
         {
