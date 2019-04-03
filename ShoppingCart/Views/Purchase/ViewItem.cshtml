@@ -5,6 +5,7 @@
 
 @{ 
     var products = (List<PurchaseProduct>)ViewData["PurchasedProduct"];
+    
 }
 <div class="container-fluid">
     <h2>My Purchase</h2>
@@ -42,7 +43,9 @@
                 </tr>
                 <tr>
                     <td>Activation Code:</td>
-                    <td>@product.ActivationCode</td>
+                    <td>
+                        @product.ActivationCode
+                    </td>
                 </tr>
             </table>
         }

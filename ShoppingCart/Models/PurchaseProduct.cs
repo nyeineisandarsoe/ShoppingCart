@@ -78,9 +78,8 @@ namespace ShoppingCart.Models
             string SqlProduct = @"SELECT Product.*, PurchaseProduct.*, 
                                     PurchaseProduct.Quantity*Product.Price as Total, Purchase.*, PurchaseProductActivation.*
                                     FROM Product, PurchaseProduct, Purchase, PurchaseProductActivation
-                                    WHERE Product.ProductId = PurchaseProduct.ProductId" +
-                                    @" AND PurchaseProduct.PurchaseId=Purchase.PurchaseId" +
-                                    @" AND PurchaseProduct.PurchaseId = PurchaseProductActivation.PurchaseId" +
+                                    WHERE Product.ProductId = PurchaseProductActivation.ProductId" +
+                                    @" AND PurchaseProductActivation.PurchaseId=Purchase.PurchaseId" +                          
                                     @" AND Product.ProductId=PurchaseProductActivation.ProductId"+
                                     @" AND Purchase.UserId =" + UserId;
             SqlConnection con = GetConnection();
