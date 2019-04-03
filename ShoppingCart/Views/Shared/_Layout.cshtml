@@ -37,8 +37,11 @@
                     <li class="@ViewBag.ActivePurchase">@Html.ActionLink("My Purchases", "ViewItem", "Purchase")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
-                    <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></liclass="@ViewBag.ActiveGallery">
+                    <li class="@ViewBag.ActiveCart"><a href="/Cart">
+                        <div style="display: inline; position:relative;">
+                             <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -5px; position: absolute;" />
+                        </div>Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
+                    <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></li>
 
                 </ul>
             </div>
