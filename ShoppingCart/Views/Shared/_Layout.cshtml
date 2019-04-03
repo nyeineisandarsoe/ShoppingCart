@@ -44,20 +44,15 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
                 <span class="navbar-brand">Shopping Cart</span>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li class="@ViewBag.ActiveHome">@Html.ActionLink("Home", "Index", "Home")</li>
                     <li class="@ViewBag.ActiveGallery">@Html.ActionLink("Gallery", "Index", "Product")</li>
                     @if (@ViewBag.Auth == "true")
                     {
-                    <li class="@ViewBag.ActivePurchase auth" style="display: block;">@Html.ActionLink("My Purchases", "Index", "Purchase")</li>
+                        <li class="@ViewBag.ActivePurchase auth" style="display: block;">@Html.ActionLink("My Purchases", "Index", "Purchase")</li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

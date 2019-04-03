@@ -7,45 +7,42 @@
 @{
     var products = (List<PurchaseProduct>)ViewData["PurchasedProduct"];
 }
-<div class="container-fluid">
-    <h2>My Purchase</h2>
-</div>
 
-<section>
-    <div class="row" style="padding: 50px 0;">
+
+<h2>My Purchases</h2>
+
+<section style="padding-top: 30px; min-height: 500px;">
+    <div class="row">
         @foreach (var product in products)
         {
-            <table>
-                <tr>
-                    <td rowspan="5">
-                        <div class="col" style="width:400px">
-                            <div class="thumbnail" style="position: relative;">
-                                <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;"></span>
-                                <img src="~/@product.Image" alt="Pay Pal">
-                                <div class="caption">
-                                    <h3>@product.ProductName</h3>
-                                    <p>@product.Description</p>
-                                    <div>
-                                        <button style="position:center; width:230px;">Download</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Purchased On:</td>
-                    <td>@product.PurchaseDate</td>
-                </tr>
-                <tr>
-                    <td>Quantity:</td>
-                    <td>@product.Quantity</td>
-                </tr>
-                <tr>
-                    <td>Activation Code:</td>
-                    <td>@product.ActivationCode</td>
-                </tr>
-            </table>
-        }
+            <div class="col-sm-6 col-md-3" style="padding-right: 0;">
+                <div class="thumbnail" style="border-radius: 5px 0 0 5px;">
+                    <img src="~/@product.Image" alt="Pay Pal" width="150">
+                    <div class="caption">
+                        <h3>@product.ProductName</h3>
+                        <p>@product.Description</p>
+                        <p><button type="button" class="btn btn-primary">Download</button></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3" style="padding-left: 0;">
+                <div class="thumbnail" style="border-left: 0; border-radius: 0 5px 5px 0; height: 328px;">
+                    <table class="table no-border">
+                        <tr>
+                            <td style="border-top: 0;">Purchased On:</td>
+                            <td style="border-top: 0;">@product.PurchaseDate</td>
+                        </tr>
+                        <tr>
+                            <td>Quantity:</td>
+                            <td>@product.Quantity</td>
+                        </tr>
+                        <tr>
+                            <td>Activation Code:</td>
+                            <td>@product.ActivationCode</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+         }
     </div>
 </section>

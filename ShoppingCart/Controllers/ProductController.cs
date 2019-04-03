@@ -23,7 +23,7 @@ namespace ShoppingCart.Controllers
         public ActionResult Search()
         {
             Product product = new Product();
-            ViewData["ProductsByName"] = product.ListProductByName(Request["search"]);
+            ViewData["Products"] = product.SearchProductByKeyword(Request["search"]);
             return View();
         }
     }

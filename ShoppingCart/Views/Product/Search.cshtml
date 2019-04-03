@@ -1,13 +1,15 @@
 ﻿@using ShoppingCart.Models;
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Gallery";
+    ViewBag.ActiveGallery = "active";
 }
 @{
-    var products = (List<Product>)ViewData["ProductsByName"];
+    var products = (List<Product>)ViewData["Products"];
 }
-<h2>Products by Name</h2>
 
-<section>
+@Html.Partial("_Search")
+
+<section style="padding-top: 30px;">
     <div class="row">
         @foreach (var product in products)
         {
@@ -22,6 +24,5 @@
                 </div>
             </div>
         }
-
     </div>
 </section>
