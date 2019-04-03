@@ -4,9 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingCart.Models;
+using ShoppingCart.Filters;
 
 namespace ShoppingCart.Controllers
 {
+    [AuthenticationFilter]
     public class ProductController : Controller
     {
         public ActionResult Index()
