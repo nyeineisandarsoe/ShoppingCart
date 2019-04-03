@@ -10,10 +10,12 @@
             display: inline-block;
             padding-top: 7px;
         }
+
         .glyphicon-remove:hover {
             cursor: pointer;
             opacity: 0.5;
         }
+
         .badge {
             position: absolute;
             top: 5px;
@@ -21,9 +23,22 @@
             background: orange !important;
             color: white;
         }
+
+        .navbar-nav .auth {
+            display: none;
+        }
+
+        .field-validation-error {
+            color: #a94442;
+        }
     </style>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </head>
 <body style="padding-bottom: 0;" onload="DisplayQuantity();">
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -40,15 +55,27 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="@ViewBag.ActiveGallery">@Html.ActionLink("Gallery", "Index", "Product")</li>
-                    <li class="@ViewBag.ActivePurchase">@Html.ActionLink("My Purchases", "ViewItem", "Purchase")</li>
+                    @if (@ViewBag.Auth == "true")
+                    {
+                    <li class="@ViewBag.ActivePurchase auth" style="display: block;">@Html.ActionLink("My Purchases", "Index", "Purchase")</li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="@ViewBag.ActiveCart"><a href="/Cart">
-                        <div style="display: inline-block; position:relative; width: 38px;">
-                             <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -20px; position: absolute;" />
-                        </div>Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
-                    <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></li>
-
+                    <li class="@ViewBag.ActiveCart">
+                        <a href="/Cart">
+                            <div style="display: inline-block; position:relative; width: 38px;">
+                                <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -20px; position: absolute;" />
+                            </div>Cart <span id="cart_count" class="badge bg-danger"></span>
+                        </a>
+                    </li>
+                    @if (@ViewBag.Auth == null)
+                    {
+                        <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></li>
+                    }
+                    @if (@ViewBag.Auth == "true")
+                    {
+                        <li class="auth" style="display: block;">@Html.ActionLink("Logout", "Logout", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>

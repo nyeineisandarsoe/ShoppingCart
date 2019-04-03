@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ShoppingCart.Models;
+using ShoppingCart.Filters;
 
 namespace ShoppingCart.Controllers
 {
@@ -12,16 +13,22 @@ namespace ShoppingCart.Controllers
         // GET: Cart
         public ActionResult Index(string CartSession)
         {
+            if (Session["UserId"] != null)
+            {
+                ViewBag.Auth = "true";
+            }
             Product product = new Product();
             CartSession = "2,3";
             ViewData["ProductCart"] = product.ProductCart(CartSession);
             return View();
         }
 
+        [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {
+            int userid = Convert.ToInt32(Session["UserId"]);
             Purchase purchase = new Purchase();
-            int rowsAffected = purchase.CreatePurchase(1);
+            int rowsAffected = purchase.CreatePurchase(userid);
             if(rowsAffected >= 1)
             {
                 PurchaseProductActivation purchaseproductati = new PurchaseProductActivation();
@@ -36,7 +43,7 @@ namespace ShoppingCart.Controllers
             }
             if (rowsAffected >= 2)
             {
-                return RedirectToAction("ViewItem", "Purchase");
+                return RedirectToAction("Index", "Purchase");
             }
             return Content("Something Wrong.");
         }

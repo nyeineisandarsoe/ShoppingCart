@@ -17,9 +17,9 @@ namespace ShoppingCart.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public List<User> validateUser(string Username, string Password)
+        public User validateUser(string Username, string Password)
         {
-            List<User> user_info = new List<User>();
+            User user = new User();
 
             string sql = "SELECT * FROM [User] WHERE UserName = '" + Username + "' AND Password = '" + Password + "'";
 
@@ -30,18 +30,15 @@ namespace ShoppingCart.Models
                 con.Open();
                 SqlCommand cmd = new SqlCommand(sql, con);
                 SqlDataReader data = cmd.ExecuteReader();
-
-                while (data.Read())
+                if (data.HasRows)
                 {
-                    user_info.Add(new User
-                    {
-                        UserId = Convert.ToInt32(data["UserId"]),
-                        UserName = data["UserName"].ToString()
-                    });
+                    data.Read();
+                    user.UserId = Convert.ToInt32(data["UserId"]);
+                    user.FirstName = data["FirstName"].ToString();
                 }
             }
 
-            return user_info;
+            return user;
         }
     }
 }

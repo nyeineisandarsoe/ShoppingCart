@@ -4,17 +4,27 @@
     ViewBag.ActiveLogin = "active";
 }
 
+@if (TempData["ErrorMessage"] != null)
+{
+<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 20px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Warning!</strong> Invalid UserName and Password!
+</div>
+}
+
 <section style="min-height: 550px;">
     <div class="row" style="padding: 50px 0;">
         @using (Html.BeginForm("Authenticate", "Login", FormMethod.Post, new { @class = "form, form-control", @style = "height: 100%; margin: 0 auto; width: 360px; padding: 40px;" }))
         {
-            <p style="font-size: 20px;">Login</p>
-            <br/>
+            <p style="font-size: 22px;">Login</p>
+            <br />
             <label for="UserName">Username:</label>
             @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.UserName)
             <br />
             <label for="Password">Password:</label>
-            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password)
             <br />
             <input type="submit" value="Login" class="btn btn-success pull-right" />
             <br />
