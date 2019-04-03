@@ -15,15 +15,23 @@ namespace ShoppingCart.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public double Total { get; set; }
+        public string ActivationCode { get; set; }
+        public DateTime PurchaseDate { get; private set; }
 
-        public List<PurchaseProduct> ProductDetailByPurchaseID(int PurchaseId)
+        #region Select by ProductId
+        /// <summary>
+        /// Select by ProductId
+        /// </summary>
+        /// <param name="PurchaseId"></param>
+        /// <returns></returns>
+        public List<PurchaseProduct> ProductDetailsPurchaseId(int PurchaseId)
         {
             List<PurchaseProduct> product = new List<PurchaseProduct>();
 
-            string SqlProduct = @"SELECT Product.ProductName, Product.Description, Product.Image, PurchaseProduct.Quantity, 
-                                    PurchaseProduct.Quantity*Product.Price as Total, Purchase.PurchaseDate, PurchaseProductActivation.ActivationCode
+            string SqlProduct = @"SELECT Product.*, PurchaseProduct.*, 
+                                    PurchaseProduct.Quantity*Product.Price as Total, Purchase.*, PurchaseProductActivation.*
                                     FROM Product, PurchaseProduct, Purchase, PurchaseProductActivation
-                                    WHERE pp.PurchaseId = " + PurchaseId +
+                                    WHERE Purchase.PurchaseId = " + PurchaseId +
                                     @" AND Product.ProductId = PurchaseProduct.ProductId" +
                                     @" AND PurchaseProduct.PurchaseId=Purchase.PurchaseId" +
                                     @" AND PurchaseProduct.PurchaseId = PurchaseProductActivation.PurchaseId" +
@@ -33,7 +41,7 @@ namespace ShoppingCart.Models
             using (con)
             {
                 con.Open();
-      
+
                 SqlCommand cmd = new SqlCommand(SqlProduct, con);
 
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -45,9 +53,10 @@ namespace ShoppingCart.Models
                         Description = (reader["Description"]).ToString(),
                         Image = (reader["Image"]).ToString(),
                         Quantity = Convert.ToInt32(reader["Quantity"]),
-                        Total = Convert.ToDouble(reader["Total"])
-                   
-                        
+                        Total = Convert.ToDouble(reader["Total"]),
+                        PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),
+                        ActivationCode = reader["ActivationCode"].ToString()
+
                     });
                 }
 
@@ -55,8 +64,53 @@ namespace ShoppingCart.Models
 
             return product;
         }
+        #endregion
 
-    }
-    
+        #region Select All items
+        /// <summary>
+        /// Select All items
+        /// </summary>
+        /// <returns></returns>
+        public List<PurchaseProduct> ListAll(int UserId)
+        {
+            List<PurchaseProduct> product = new List<PurchaseProduct>();
+
+            string SqlProduct = @"SELECT Product.*, PurchaseProduct.*, 
+                                    PurchaseProduct.Quantity*Product.Price as Total, Purchase.*, PurchaseProductActivation.*
+                                    FROM Product, PurchaseProduct, Purchase, PurchaseProductActivation
+                                    WHERE Product.ProductId = PurchaseProduct.ProductId" +
+                                    @" AND PurchaseProduct.PurchaseId=Purchase.PurchaseId" +
+                                    @" AND PurchaseProduct.PurchaseId = PurchaseProductActivation.PurchaseId" +
+                                    @" AND Product.ProductId=PurchaseProductActivation.ProductId"+
+                                    @" AND Purchase.UserId =" + UserId;
+            SqlConnection con = GetConnection();
+            using (con)
+            {
+                con.Open();
+
+                SqlCommand cmd = new SqlCommand(SqlProduct, con);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    product.Add(new PurchaseProduct
+                    {
+                        ProductName = (reader["ProductName"]).ToString(),
+                        Description = (reader["Description"]).ToString(),
+                        Image = (reader["Image"]).ToString(),
+                        Quantity = Convert.ToInt32(reader["Quantity"]),
+                        Total = Convert.ToDouble(reader["Total"]),
+                        PurchaseDate = Convert.ToDateTime(reader["PurchaseDate"]),
+                        ActivationCode = reader["ActivationCode"].ToString()
+
+                    });
+                }
+
+            }
+            return product;
+        } 
+        #endregion
+
+    }  
     
 }

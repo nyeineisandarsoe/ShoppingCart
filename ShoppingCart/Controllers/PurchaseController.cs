@@ -13,8 +13,9 @@ namespace ShoppingCart.Controllers
         public ActionResult ViewItem()
         {
             PurchaseProduct purchaseProduct = new PurchaseProduct();
-            int PurchaseId=2;
-            ViewData["PurchasedProduct"] = purchaseProduct.ProductDetailByPurchaseID(PurchaseId);
+
+            
+            ViewData["PurchasedProduct"] = purchaseProduct.ListAll(1); 
             return View();
         }
     }
