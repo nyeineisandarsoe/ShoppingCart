@@ -10,17 +10,35 @@ namespace ShoppingCart.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult Index()
+        public ActionResult Index(string CartSession)
         {
             Product product = new Product();
-            string CartSession = "2,3";
+            CartSession = "2,3";
             ViewData["ProductCart"] = product.ProductCart(CartSession);
             return View();
         }
 
-        public ActionResult Checkout()
+        public ActionResult Checkout(string CartSession)
         {
-            return View();
+            Purchase purchase = new Purchase();
+            int rowsAffected = purchase.CreatePurchase(1);
+            if(rowsAffected >= 1)
+            {
+                PurchaseProductActivation purchaseproductati = new PurchaseProductActivation();
+                CartSession = "2,3";
+                string[] pids = CartSession.Split(',');
+                int[] productids = pids.Select(int.Parse).ToArray();
+                int maxid = purchase.GetMaxId();
+                foreach (var productid in productids)
+                {
+                    rowsAffected += purchaseproductati.CreatePurchaseProductActivation(maxid, productid);
+                }
+            }
+            if (rowsAffected >= 2)
+            {
+                return RedirectToAction("ViewItem", "Purchase", new { area = "" });
+            }
+            return Content("Something Wrong.");
         }
     }
 }
