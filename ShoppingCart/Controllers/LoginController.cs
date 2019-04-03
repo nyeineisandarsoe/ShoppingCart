@@ -9,12 +9,12 @@ namespace ShoppingCart.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Main()
+        public ActionResult Index()
         {
             return View();
         }
 
-       /*public ActionResult Authenticate(string Username, string Password)
+       public ActionResult Authenticate(string Username, string Password)
         {
             User user = new User();
             bool isValidUser = user.validateUserbyUsername(Username, Password);
@@ -22,7 +22,7 @@ namespace ShoppingCart.Controllers
             {
                 string sessionId = Guid.NewGuid().ToString();
                 Session["sessionId"] = sessionId;
-                return RedirectToAction("","");
+                return RedirectToAction("","", new{Username = @Username});
             }
             else
             {
@@ -30,7 +30,7 @@ namespace ShoppingCart.Controllers
             }
             
         }
-        */
+
         public ActionResult Logout(string sessionId)
         {
             Session["sessionId"] = null;
