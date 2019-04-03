@@ -1,7 +1,36 @@
-﻿
-@{
+﻿@{
+
     ViewBag.Title = "InvalidUser";
+
 }
 
-<h2>InvalidUser</h2>
+
+
+<script>
+
+    function showMessage() {
+
+        alert('Invalid Username or Password!');
+
+    }
+
+</script>
+
+
+
+<body onload="showMessage">
+
+    @using (Html.BeginForm("Main", "Login", FormMethod.Post))
+
+    {
+
+        <input type="submit" value="Back" />
+
+    }
+
+</body>
+
+
+
+
 

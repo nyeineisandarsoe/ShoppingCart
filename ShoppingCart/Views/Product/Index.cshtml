@@ -10,10 +10,13 @@
 
 <section>
     <div class="container" style="padding: 40px 0;">
-        <div class="input-group">
-            <input type="text" class="form-control" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
-            <span class="input-group-addon" id="basic-addon2">Search</span>
-        </div>
+        @*<div class="input-group">
+            <input type="text" class="form-control" name="search" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
+        </div>*@
+        <form class="form-inline md-form mr-auto mb-4">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
+            <button class="btn aqua-gradient btn-rounded btn-sm my-0" formaction="Search" type="submit">Search</button>
+        </form>
     </div>
 </section>
 
@@ -36,28 +39,3 @@
     </div>
 </section>
 
-<script type="text/javascript">
-
-    var count=0;
-
-    var products = [];
-
-    function AddtoCart(val)
-    {
-        count = parseInt(count) + 1;
-        
-        products.push(val);
-
-        localStorage.setItem("ProductIDs", products);
-
-        var product_list = [];
-
-        product_list = localStorage.getItem("ProductIDs");
-
-        console.log(product_list);
-        console.log(product_list.length);
-
-        document.getElementById("cart_count").innerHTML = productIDs.length;
-    }
-
-</script>
