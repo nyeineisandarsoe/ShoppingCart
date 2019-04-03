@@ -1,42 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
 
 namespace ShoppingCart.Models
 {
-    public class Purchase: DatabaseConnection
+    public class Purchase : DatabaseConnection
     {
         public int PurchaseId { get; set; }
         public int UserId { get; set; }
         public DateTime PurchaseDate { get; set; }
 
-        public List<int> GetPurchaseIdsbyUsername(string Username)
+        public int CreatePurchase(int UserId)
         {
-            List<Int32> purchaseIdList = new List<Int32>();
 
-            SqlConnection conn = GetConnection();
-            using (conn)
+            string sql = "Insert Into Purchase (UserId, PurchaseDate) Values ( "+ UserId +", GETDATE());";
+            SqlConnection con = GetConnection();
+            using (con)
             {
-                conn.Open();
-                string sqlStatement = @"Select PurchaseId
-                                            From Purchase
-                                                where UserName =  " + Username;
-                SqlCommand Cmd = new SqlCommand(sqlStatement, conn);
-                SqlDataReader Reader = Cmd.ExecuteReader();
-
-                while (Reader.Read())
-                {
-                    int purchaseId = (int)Reader["PurchaseId"];
-                    purchaseIdList.Add(purchaseId);
-                }
-
-                return purchaseIdList;
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                return cmd.ExecuteNonQuery();
             }
+        }
 
+        public int GetMaxId()
+        {
+            string sql = "Select Max(PurchaseId) as MaxId FROM Purchase;";
+            SqlConnection con = GetConnection();
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader data = cmd.ExecuteReader();
+                data.Read();
+                int MaxId = Convert.ToInt32(data["MaxId"]);
+                return MaxId;
+            }
         }
     }
-
-
 }
