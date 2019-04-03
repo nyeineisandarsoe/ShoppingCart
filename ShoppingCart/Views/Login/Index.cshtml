@@ -1,22 +1,26 @@
-﻿
+﻿@model ShoppingCart.Models.User
 @{
-    ViewBag.Title = "Login_Main";
+    ViewBag.Title = "Login";
+    ViewBag.ActiveLogin = "active";
 }
 
-@model ShoppingCart.Models.User
-
-@using (Html.BeginForm("Authenticate", "Login", FormMethod.Post, new { @class = "form, form-control" }))
-{
-    <label for="UserName">Username:</label>
-    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control"})
-
-    <label for="Password">Password:</label>
-    @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
-
-    <input type="submit" value="Login" class="btn btn-success"/>
- }
-
-
+<section style="min-height: 550px;">
+    <div class="row" style="padding: 50px 0;">
+        @using (Html.BeginForm("Authenticate", "Login", FormMethod.Post, new { @class = "form, form-control", @style = "height: 100%; margin: 0 auto; width: 360px; padding: 40px;" }))
+        {
+            <p style="font-size: 20px;">Login</p>
+            <br/>
+            <label for="UserName">Username:</label>
+            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            <br />
+            <label for="Password">Password:</label>
+            @Html.TextBoxFor(m => m.Password, new { @class = "form-control" })
+            <br />
+            <input type="submit" value="Login" class="btn btn-success pull-right" />
+            <br />
+        }
+    </div>
+</section>
 
 
 

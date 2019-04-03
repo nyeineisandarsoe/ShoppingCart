@@ -28,16 +28,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Shopping Cart", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+                <span class="navbar-brand">Shopping Cart</span>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Gallery", "Index", "Product")</li>
-                    <li>@Html.ActionLink("My Purchases", "ViewItem", "Purchase")</li>
+                    <li class="@ViewBag.ActiveGallery">@Html.ActionLink("Gallery", "Index", "Product")</li>
+                    <li class="@ViewBag.ActivePurchase">@Html.ActionLink("My Purchases", "ViewItem", "Purchase")</li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="@ViewBag.ActiveCart"><a href="/Cart"><img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; vertical-align: top; margin-top: -5px; margin-right: 5px;" /> Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
-                    <li><a href="/Login">Login</a></li>
+                    <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></liclass="@ViewBag.ActiveGallery">
 
                 </ul>
             </div>

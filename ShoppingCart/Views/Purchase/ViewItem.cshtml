@@ -1,9 +1,10 @@
 ﻿@using ShoppingCart.Models
 @{
-    ViewBag.Title = "ViewItem";
+    ViewBag.Title = "Purchase";
+    ViewBag.ActivePurchase = "active";
 }
 
-@{ 
+@{
     var products = (List<PurchaseProduct>)ViewData["PurchasedProduct"];
 }
 <div class="container-fluid">

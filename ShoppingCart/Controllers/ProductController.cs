@@ -8,7 +8,6 @@ using ShoppingCart.Filters;
 
 namespace ShoppingCart.Controllers
 {
-    [AuthenticationFilter]
     public class ProductController : Controller
     {
         public ActionResult Index()

@@ -1,18 +1,19 @@
 ﻿@using ShoppingCart.Models;
 @{
-    ViewBag.Title = "Index";
-}
-@{ 
+    ViewBag.Title = "Gallery";
+    ViewBag.ActiveGallery = "active";
+}    
+@{
     var products = (List<Product>)ViewData["ProductData"];
 }
-<h2>Index</h2>
+<h2>Gallery</h2>
 
 
 <section>
     <div class="container" style="padding: 40px 0;">
         @*<div class="input-group">
-            <input type="text" class="form-control" name="search" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
-        </div>*@
+                <input type="text" class="form-control" name="search" style="max-width: 100%;" placeholder="Enter Keyword" aria-describedby="basic-addon2">
+            </div>*@
         <form class="form-inline md-form mr-auto mb-4">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" aria-label="Search">
             <button class="btn aqua-gradient btn-rounded btn-sm my-0" formaction="Product/Search" type="submit">Search</button>
@@ -34,8 +35,8 @@
                     </div>
                 </div>
             </div>
-         }
-            
+        }
+
     </div>
 </section>
 

@@ -36,7 +36,7 @@ namespace ShoppingCart.Controllers
             }
             if (rowsAffected >= 2)
             {
-                return RedirectToAction("ViewItem", "Purchase", new { area = "" });
+                return RedirectToAction("ViewItem", "Purchase");
             }
             return Content("Something Wrong.");
         }
