@@ -180,7 +180,7 @@
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Login\InvalidUser.cshtml" />
-    <Content Include="Views\Login\Main.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
