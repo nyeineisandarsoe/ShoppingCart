@@ -17,31 +17,31 @@ namespace ShoppingCart.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public bool validateUserbyUsername(string Username, string Password)
+        public List<User> validateUser(string Username, string Password)
         {
-            SqlConnection conn = GetConnection();
-            using(conn)
+            List<User> user_info = new List<User>();
+
+            string sql = "SELECT * FROM [User] WHERE UserName = '" + Username + "' AND Password = '" + Password + "'";
+
+            SqlConnection con = GetConnection();
+
+            using (con)
             {
-                conn.Open();
-                string sqlStatement = @"Select Password
-                                            From [User]
-                                                where UserName =  '" + Username + "'";
-                SqlCommand Cmd = new SqlCommand(sqlStatement, conn);
-                SqlDataReader Reader = Cmd.ExecuteReader();
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader data = cmd.ExecuteReader();
 
-                if (Reader.Read())
+                while (data.Read())
                 {
-                    String realPassword = (string)Reader["Password"];
-                    if(realPassword == Password)
+                    user_info.Add(new User
                     {
-                        return true;
-                    }
+                        UserId = Convert.ToInt32(data["UserId"]),
+                        UserName = data["UserName"].ToString()
+                    });
                 }
-
-                return false;
             }
-            
+
+            return user_info;
         }
-       
     }
 }
