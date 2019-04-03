@@ -14,7 +14,13 @@
             cursor: pointer;
             opacity: 0.5;
         }
-
+        .badge {
+            position: absolute;
+            top: 5px;
+            left: 35px;
+            background: orange !important;
+            color: white;
+        }
     </style>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -38,8 +44,8 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="@ViewBag.ActiveCart"><a href="/Cart">
-                        <div style="display: inline; position:relative;">
-                             <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -5px; position: absolute;" />
+                        <div style="display: inline-block; position:relative; width: 38px;">
+                             <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -20px; position: absolute;" />
                         </div>Cart <span id="cart_count" class="badge bg-danger"></span></a></li>
                     <li class="@ViewBag.ActiveLogin"><a href="/Login">Login</a></li>
 
