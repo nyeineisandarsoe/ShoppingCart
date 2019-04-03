@@ -16,19 +16,7 @@ namespace ShoppingCart.Controllers
 
        public ActionResult Authenticate(string Username, string Password)
         {
-            User user = new User();
-            bool isValidUser = user.validateUserbyUsername(Username, Password);
-            if (isValidUser)
-            {
-                string sessionId = Guid.NewGuid().ToString();
-                Session["sessionId"] = sessionId;
-                return RedirectToAction("","", new{Username = @Username});
-            }
-            else
-            {
-                return RedirectToAction("InvalidUser");
-            }
-            
+            return View();
         }
 
         public ActionResult Logout(string sessionId)
