@@ -44,6 +44,7 @@ namespace ShoppingCart.Controllers
                     }
                 }
             }
+             
 
             if (productList != "")
             {
@@ -59,11 +60,11 @@ namespace ShoppingCart.Controllers
                         dict[value] = 1;
                 }
 
-                ViewData["ProductQuantities"] = dict;
+                ViewData["Quantity"] = dict;
+                ViewData["ProductCart"] = product.ProductCart(productList);
             }
-           
-            ViewData["ProductCart"] = product.ProductCart(productList);
-            
+                     
+
             return View();
         }
         
