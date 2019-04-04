@@ -18,6 +18,7 @@ namespace ShoppingCart.Controllers
             {
                 ViewBag.Auth = "true";
             }
+
             Product product = new Product();
 
             ArrayList productIds = (ArrayList)Session["productIds"];
@@ -39,16 +40,33 @@ namespace ShoppingCart.Controllers
                     }
                     else
                     {
-                        productList += productIds[i - 1] + ", ";
+                        productList += productIds[i - 1] + ",";
                     }
                 }
             }
 
+            if (productList != "")
+            {
+                string[] productIdList = productList.Split(',');
+
+                var dict = new Dictionary<string, int>();
+
+                foreach (var value in productIdList)
+                {
+                    if (dict.ContainsKey(value))
+                        dict[value]++;
+                    else
+                        dict[value] = 1;
+                }
+
+                ViewData["ProductQuantities"] = dict;
+            }
+           
             ViewData["ProductCart"] = product.ProductCart(productList);
             
             return View();
         }
-
+        
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {

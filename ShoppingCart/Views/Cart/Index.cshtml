@@ -1,7 +1,12 @@
-﻿@using ShoppingCart.Models;
+﻿
+@using ShoppingCart.Models;
 @{
     ViewBag.Title = "Cart";
     ViewBag.ActiveCart = "active";
+}
+
+@{ 
+   // var quantities = (Dictionary<string, int>)ViewData["ProductQuantities"];
 }
 
 @{
@@ -17,6 +22,10 @@
     <section>
         <div class="row" style="padding: 50px 0;">
 
+            @*@foreach (var quantity in quantities)
+            {
+                <p>@quantity.Key</p> <p>:  @quantity.Value</p>
+            }*@
 
             @foreach (var product in products)
             {
