@@ -23,7 +23,7 @@ namespace ShoppingCart.Controllers
 
             Product product = new Product();
 
-            ArrayList productIds = (ArrayList)Session["productIds"];
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
 
             
             string productList = "";
@@ -73,14 +73,14 @@ namespace ShoppingCart.Controllers
 
         public ActionResult removeItem(string productid)
         {
-            ArrayList productIds = (ArrayList)Session["productIds"];
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
 
             for (int i = 0; i < productIds.Count; i++)
             {
                 productIds.Remove(productid);
             }
 
-            Session["productIds"] = productIds;
+            Session["ProductIds"] = productIds;
 
             return RedirectToAction("Index");
         }

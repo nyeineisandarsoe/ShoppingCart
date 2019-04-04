@@ -15,26 +15,29 @@
 }
 <div class="fluid-container">
     <h2>Cart</h2>
-        @{double total = 0.0; }
+    @{double total = 0.0; }
 
-        @foreach (var product in products)
+        @foreach (var product in products ?? new List<Product>())
         {
             total += product.Price * Convert.ToDouble(quantities[product.ProductId.ToString()]);
         }
+    
 
-        <h3>Total: $ <span id="total">@total</span></h3>
 
-        <div class="pull-right" style="padding-top: 30px;">
-            <a href="/" class="btn btn-primary">Continue Shopping</a>
-            <a href='/Cart/Checkout?CartSession="5,6"' class="btn btn-success">CheckOut</a>
-        </div>
+
+    <h3>Total: $ <span id="total">@total</span></h3>
+
+    <div class="pull-right" style="padding-top: 30px;">
+        <a href="/" class="btn btn-primary">Continue Shopping</a>
+        <a href='/Cart/Checkout?CartSession="5,6"' class="btn btn-success">CheckOut</a>
     </div>
+</div>
     <section>
         
 
         <div class="row" style="padding: 50px 0;" id="cartList">
 
-            @foreach (var product in products)
+            @foreach (var product in products ?? new List<Product>())
             {
                 <div class="col-sm-6 col-md-3" id="@product.ProductId">
                     <div class="thumbnail" style="position: relative;">
