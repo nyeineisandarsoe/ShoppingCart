@@ -5,7 +5,7 @@
 }
 
 @{
-    var products = (List<Product>)ViewData["ProductCart"];
+    var products = (string)ViewData["ProductCart"];
     }
     <div class="fluid-container">
         <h2>Cart</h2>
@@ -16,7 +16,8 @@
     </div>
     <section>
         <div class="row" style="padding: 50px 0;">
-            @foreach (var product in products)
+            <p>@products</p>
+            @*@foreach (var product in products)
             {
             <div class="col-sm-6 col-md-3">
                 <div class="thumbnail" style="position: relative;">
@@ -35,5 +36,5 @@
                 </div>
             </div>
             }
-        </div>
+        </div>*@
     </section>

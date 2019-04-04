@@ -64,7 +64,6 @@ namespace ShoppingCart.Models
                 {
                     products.Add(new Product
                     {
-
                         ProductId = Convert.ToInt32(data["ProductId"]),
                         ProductName = data["ProductName"].ToString(),
                         Price = Convert.ToDouble(data["Price"]),

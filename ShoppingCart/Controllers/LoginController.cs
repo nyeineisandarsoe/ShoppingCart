@@ -45,17 +45,13 @@ namespace ShoppingCart.Controllers
         public ActionResult Logout(string sessionId)
         {
             Session["sessionId"] = null;
-            //clear sessionId
-            //clear cart selection
 
-            return View("Main");
+            return RedirectToAction("Index", "Login");
         }
 
         public ActionResult InvalidUser()
         {
             return View();
         }
-
-
     }
 }

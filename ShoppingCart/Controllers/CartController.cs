@@ -13,8 +13,8 @@ namespace ShoppingCart.Controllers
         public ActionResult Index(string CartSession)
         {
             Product product = new Product();
-            CartSession = "2,3";
-            ViewData["ProductCart"] = product.ProductCart(CartSession);
+            CartSession = "2, 3";
+            ViewData["ProductCart"] = CartSession; //product.ProductCart((string)Session["ProductIDs"]);
             return View();
         }
 
