@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,8 @@ namespace ShoppingCart.Controllers
 {
     public class ProductController : Controller
     {
+        ArrayList productIds = new ArrayList();
+
         public ActionResult Index()
         {
             if(Session["UserId"] != null)
@@ -18,6 +21,20 @@ namespace ShoppingCart.Controllers
             Product product = new Product();
             ViewData["ProductData"] = product.ListAll();
             return View();
+        }
+
+        public ActionResult AddtoCart(string productId)
+        {
+            if (Session["ProductIds"] != null)
+            {
+                productIds = (ArrayList)Session["ProductIds"];
+            }
+
+            productIds.Add(productId);
+
+            Session["ProductIds"] = productIds;
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult Search()
