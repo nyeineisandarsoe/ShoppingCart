@@ -16,42 +16,29 @@ namespace ShoppingCart.Controllers
 
        public ActionResult Authenticate(string Username, string Password)
         {
-            int user_id = 0;
-            string username = "";
-
-            List<User> user_info = new List<User>();
-
             User user = new User();
+            user = user.validateUser(Username, Password);
 
-            user_info = user.validateUser(Username, Password);
-
-            foreach (var info in user_info)
+            if (user.UserId != 0)
             {
-                user_id = info.UserId;
-                username = info.UserName;
-            }
-
-            if (user_id != 0)
-            {
-                Session["UserId"] = user_id;
-                Session["UserName"] = username;
+                Session["UserId"] = user.UserId;
+                Session["UserName"] = user.FirstName;
 
                 return RedirectToAction("Index", "Product");
             }
-
-            return RedirectToAction("Index", "Login");           
+            else
+            {
+                TempData["ErrorMessage"] = "true";
+                return RedirectToAction("Index", "Login");
+            }           
         }
 
-        public ActionResult Logout(string sessionId)
+        public ActionResult Logout()
         {
-            Session["sessionId"] = null;
+            Session["UserId"] = null;
+            Session["UserName"] = null;
 
-            return RedirectToAction("Index", "Login");
-        }
-
-        public ActionResult InvalidUser()
-        {
-            return View();
+            return RedirectToAction("Index", "Product");
         }
     }
 }

@@ -1,14 +1,22 @@
 ﻿@using ShoppingCart.Models;
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Gallery";
+    ViewBag.ActiveGallery = "active";
 }
 @{
-    var products = (List<Product>)ViewData["ProductsByName"];
+    var products = (List<Product>)ViewData["Products"];
 }
-<h2>Products by Name</h2>
 
-<section>
+@Html.Partial("_Search")
+
+<section style="padding-top: 30px; min-height: 500px;">
     <div class="row">
+        @if (products.Count() == 0)
+        {
+            <div class="alert alert-info alert-dismissible" role="alert" style="margin-top: 20px;">
+                <strong>Information!</strong> No Item Result!
+            </div>
+        }
         @foreach (var product in products)
         {
             <div class="col-sm-6 col-md-3">
@@ -22,6 +30,5 @@
                 </div>
             </div>
         }
-
     </div>
 </section>
