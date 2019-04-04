@@ -135,7 +135,6 @@ namespace ShoppingCart.Models
                         from Product
                         Where ProductID =" + ProductId;
             SqlConnection con = GetConnection();
-
             using (con)
             {
                 con.Open();

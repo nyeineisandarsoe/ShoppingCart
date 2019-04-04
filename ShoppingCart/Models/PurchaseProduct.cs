@@ -26,7 +26,6 @@ namespace ShoppingCart.Models
                         Where pa.PurchaseId = p.PurchaseId
                         and p.UserId = 1
                         Group By p.PurchaseId, p.PurchaseDate, pa.ProductId;";
-
             SqlConnection con = GetConnection();
             using (con)
             {

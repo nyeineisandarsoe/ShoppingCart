@@ -45,13 +45,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Activation Code:</b><br/>
-                            <select class="form-control" style="padding-left: 0;" id="@product.PurchaseId-@product.ProductId">
-                                @foreach (var act in @product.ActivationCode)
-                                 {
-                                     <option>@act</option>
-                                 }
-                            </select>
+                            <td>
+                                <b>Activation Code:</b><br/>
+                                <select class="form-control" style="padding-left: 0;" id="@product.PurchaseId-@product.ProductId">
+                                    @foreach (var act in @product.ActivationCode)
+                                     {
+                                         <option>@act</option>
+                                     }
+                                </select>
                             </td>
                         </tr>
                     </table>
