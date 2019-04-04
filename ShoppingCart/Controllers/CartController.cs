@@ -18,6 +18,7 @@ namespace ShoppingCart.Controllers
             if (Session["UserId"] != null)
             {
                 ViewBag.Auth = "true";
+                ViewBag.UserName = Session["UserName"];
             }
 
             Product product = new Product();
