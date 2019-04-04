@@ -42,8 +42,8 @@ namespace ShoppingCart.Models
                         ProductName = (reader["ProductName"]).ToString(),
                         Description = (reader["Description"]).ToString(),
                         Image = (reader["Image"]).ToString(),
-                        Quantity = 1,
-                        //Quantity = Convert.ToInt32(reader["Quantity"]),
+                        //Quantity = 1,
+                        Quantity = Convert.ToInt32(reader["Quantity"]),
                         PurchaseDate = reader["PurchaseDate"].ToString(),
                         ActivationCode = reader["ActivationCode"].ToString()
 
