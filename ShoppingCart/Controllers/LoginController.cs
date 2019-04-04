@@ -23,6 +23,7 @@ namespace ShoppingCart.Controllers
             {
                 Session["UserId"] = user.UserId;
                 Session["UserName"] = user.FirstName;
+                Session["Sessionid"] = Guid.NewGuid().ToString();
 
                 return RedirectToAction("Index", "Product");
             }
