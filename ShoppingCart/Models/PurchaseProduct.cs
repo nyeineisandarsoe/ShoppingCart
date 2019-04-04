@@ -15,45 +15,51 @@ namespace ShoppingCart.Models
         public string Description { get; set; }
         public string Image { get; set; }
         public double Total { get; set; }
-        public string ActivationCode { get; set; }
+        public string[] ActivationCode { get; set; }
         public string PurchaseDate { get; set; }
 
         public List<PurchaseProduct> ListAll(int UserId)
         {
-            List<PurchaseProduct> product = new List<PurchaseProduct>();
+            List<PurchaseProduct> products = new List<PurchaseProduct>();
+            string sql = @"Select pa.ProductId, p.PurchaseId, p.PurchaseDate, Count(pa.ProductId) as Quantity 
+                        from PurchaseProductActivation pa, Purchase p
+                        Where pa.PurchaseId = p.PurchaseId
+                        and p.UserId = 1
+                        Group By p.PurchaseId, p.PurchaseDate, pa.ProductId;";
 
-            string SqlProduct = @"SELECT Product.*, Purchase.*, PurchaseProductActivation.*
-                                    FROM Product, Purchase, PurchaseProductActivation
-                                    WHERE Product.ProductId = PurchaseProductActivation.ProductId" +
-                                    @" AND PurchaseProductActivation.PurchaseId=Purchase.PurchaseId" +
-                                    @" AND Purchase.UserId =" + UserId;
             SqlConnection con = GetConnection();
             using (con)
             {
                 con.Open();
-
-                SqlCommand cmd = new SqlCommand(SqlProduct, con);
+                SqlCommand cmd = new SqlCommand(sql, con);
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     DateTime purchasedate = Convert.ToDateTime(reader["PurchaseDate"]);
-                    product.Add(new PurchaseProduct
-                    {
-                        ProductName = (reader["ProductName"]).ToString(),
-                        Description = (reader["Description"]).ToString(),
-                        Image = (reader["Image"]).ToString(),
-                        Quantity = 1,
-                        //Quantity = Convert.ToInt32(reader["Quantity"]),
-                        PurchaseDate = purchasedate.ToString("MMMM dd, yyyy"),
-                        
-                    ActivationCode = reader["ActivationCode"].ToString()
+                    int productid = Convert.ToInt32(reader["ProductId"]);
+                    int purchaseid = Convert.ToInt32(reader["PurchaseId"]);
 
+                    Product product = new Product();
+                    product = product.GetbyId(productid);
+
+                    PurchaseProductActivation purchaseProductActivation = new PurchaseProductActivation();
+                    string activationlist = purchaseProductActivation.GetActivationCode(productid, purchaseid);
+                    string[] activations = activationlist.Split(',');
+                    Array.Resize(ref activations, activations.Length - 1);
+                    products.Add(new PurchaseProduct
+                    {
+                        PurchaseId = purchaseid,
+                        ProductId = productid,
+                        ProductName = product.ProductName,
+                        Description = product.Description,
+                        Image = product.Image,
+                        Quantity = Convert.ToInt32(reader["Quantity"]),
+                        PurchaseDate = purchasedate.ToString("MMMM dd, yyyy"),
+                        ActivationCode = activations
                     });
                 }
-
             }
-            return product;
-        } 
-    }  
-    
+            return products;
+        }
+    }    
 }

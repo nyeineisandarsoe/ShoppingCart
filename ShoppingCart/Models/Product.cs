@@ -128,5 +128,30 @@ namespace ShoppingCart.Models
             }
             return products;
         }
+
+        public Product GetbyId(int ProductId)
+        {
+            Product product = new Product();
+            string sql = @"Select ProductName, Description, Price, Image 
+                        from Product
+                        Where ProductID =" + ProductId;
+            SqlConnection con = GetConnection();
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader data = cmd.ExecuteReader();
+                if (data.HasRows)
+                {
+                    data.Read();
+                    product.ProductName = data["ProductName"].ToString();
+                    product.Price = Convert.ToInt32(data["Price"]);
+                    product.Image = data["Image"].ToString();
+                    product.Description = data["Description"].ToString();
+                }
+            }
+            return product;
+        }
     }
 }
