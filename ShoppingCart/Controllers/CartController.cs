@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,12 +18,56 @@ namespace ShoppingCart.Controllers
             {
                 ViewBag.Auth = "true";
             }
+
             Product product = new Product();
-            CartSession = "2,3";
-            ViewData["ProductCart"] = product.ProductCart(CartSession);
+
+            ArrayList productIds = (ArrayList)Session["productIds"];
+
+            string productList = "";
+
+            if (productIds == null)
+            {
+                productList = "0";
+            }
+            else
+            {
+                int totalCount = productIds.Count;
+                for (int i = 1; i <= totalCount; i++)
+                {
+                    if (i == totalCount)
+                    {
+                        productList += productIds[i - 1];
+                    }
+                    else
+                    {
+                        productList += productIds[i - 1] + ",";
+                    }
+                }
+            }
+             
+
+            if (productList != "")
+            {
+                string[] productIdList = productList.Split(',');
+
+                var dict = new Dictionary<string, int>();
+
+                foreach (var value in productIdList)
+                {
+                    if (dict.ContainsKey(value))
+                        dict[value]++;
+                    else
+                        dict[value] = 1;
+                }
+
+                ViewData["Quantity"] = dict;
+                ViewData["ProductCart"] = product.ProductCart(productList);
+            }
+                     
+
             return View();
         }
-
+        
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {

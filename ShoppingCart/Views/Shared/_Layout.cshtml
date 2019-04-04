@@ -92,10 +92,8 @@
 
     
     var products = [];
-    function AddtoCart(val)
-    {
-        if (sessionStorage.getItem("ProductIds") !== null)
-        {
+    function AddtoCart(val) {
+        if (sessionStorage.getItem("ProductIds") !== null) {
             products = JSON.parse(sessionStorage.getItem("ProductIds"));
         }
 
@@ -103,16 +101,17 @@
 
         sessionStorage.setItem("ProductIds", JSON.stringify(products));
 
-        //console.log(products.length);
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("POST", "Product/AddtoCart?productId=" + val);
+        xhr.send();
 
         DisplayQuantity();
     }
 
-    function DisplayQuantity()
-    {
+    function DisplayQuantity() {
         var products = JSON.parse(sessionStorage.getItem("ProductIds"));
         document.getElementById("cart_count").innerHTML = products.length;
     }
-
 </script>
 </html>

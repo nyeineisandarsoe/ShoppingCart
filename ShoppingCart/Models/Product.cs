@@ -13,7 +13,7 @@ namespace ShoppingCart.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-
+        
         public List<Product> ListAll()
         {
             List<Product> products = new List<Product>();
@@ -64,7 +64,6 @@ namespace ShoppingCart.Models
                 {
                     products.Add(new Product
                     {
-
                         ProductId = Convert.ToInt32(data["ProductId"]),
                         ProductName = data["ProductName"].ToString(),
                         Price = Convert.ToDouble(data["Price"]),
