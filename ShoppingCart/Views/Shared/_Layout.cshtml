@@ -97,7 +97,7 @@
     
     var products = [];
     function AddtoCart(val) {
-        if (sessionStorage.getItem("ProductIds") !== null) {
+        if (JSON.parse(sessionStorage.getItem("ProductIds")) !== null) {
             products = JSON.parse(sessionStorage.getItem("ProductIds"));
         }
 
