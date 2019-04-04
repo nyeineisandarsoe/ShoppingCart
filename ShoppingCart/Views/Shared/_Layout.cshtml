@@ -124,5 +124,42 @@
         }
         
     }
+
+    function removeItem(id) {
+
+        var price = document.getElementById("total").innerHTML;
+        var baseElement = document.getElementById(id);
+        var content_element = baseElement.firstElementChild.lastElementChild;
+        var price_element = content_element.childNodes[2].nextSibling;
+        var price = price_element.firstElementChild.innerHTML;
+        var quantity = price_element.nextSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value;
+
+        var substract = price * quantity;
+
+        document.getElementById("total").innerHTML -= substract;
+
+        var element = document.getElementById(id);
+        element.remove();
+
+        var products = JSON.parse(sessionStorage.getItem("ProductIds"));
+
+        if (products !== undefined || products.length > 0) {
+
+            var filtered = products
+                .filter(function (value) {
+                    return value != id;
+                });
+
+            sessionStorage.setItem("ProductIds", JSON.stringify(filtered));
+
+            DisplayQuantity();
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "Cart/removeItem?productid=" + id);
+        xhr.send();
+
+        //console.log(filtered.length);
+    }
 </script>
 </html>

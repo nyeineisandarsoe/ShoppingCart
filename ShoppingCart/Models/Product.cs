@@ -80,8 +80,8 @@ namespace ShoppingCart.Models
         {
             List<Product> products = new List<Product>();
 
-            string sql1 = "SELECT * FROM Product WHERE ProductName LIKE '%" + keyword + "%';";
-            string sql2 = "SELECT * FROM Product WHERE Description LIKE '%" + keyword + "%';";
+            string sql1 = "SELECT * FROM Product WHERE ProductName LIKE '%" + keyword + "%' OR Description LIKE '%" + keyword + "%';";
+            //string sql2 = "SELECT * FROM Product WHERE Description LIKE '%" + keyword + "%';";
 
 
             SqlConnection con = GetConnection();
@@ -107,7 +107,7 @@ namespace ShoppingCart.Models
                 }
                 data1.Close();
 
-                SqlCommand cmd2 = new SqlCommand(sql2, con);
+                /*SqlCommand cmd2 = new SqlCommand(sql2, con);
                 SqlDataReader data2 = cmd2.ExecuteReader();
                 if (data2.HasRows)
                 {
@@ -123,7 +123,7 @@ namespace ShoppingCart.Models
                         });
                     }
                 }
-                data2.Close();
+                data2.Close();*/
             }
             return products;
         }
