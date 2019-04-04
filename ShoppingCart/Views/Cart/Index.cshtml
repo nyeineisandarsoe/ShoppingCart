@@ -75,6 +75,24 @@
             var element = document.getElementById(id);
             element.remove();
 
-            //console.log(substract);
+            var products = JSON.parse(sessionStorage.getItem("ProductIds"));
+
+            if (products !== undefined || products.length > 0) {
+
+                var filtered = products
+                    .filter(function (value) {
+                        return value != id;
+                    });
+
+                sessionStorage.setItem("ProductIds", JSON.stringify(filtered));
+
+                DisplayQuantity();
+            }
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "Cart/removeItem?productid=" + id);
+            xhr.send();
+
+            //console.log(filtered.length);
         }
     </script>

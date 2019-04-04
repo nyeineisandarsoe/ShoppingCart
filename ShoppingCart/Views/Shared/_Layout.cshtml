@@ -111,7 +111,14 @@
 
     function DisplayQuantity() {
         var products = JSON.parse(sessionStorage.getItem("ProductIds"));
-        document.getElementById("cart_count").innerHTML = products.length;
+
+        if (products.length > 0) {
+            document.getElementById("cart_count").innerHTML = products.length;
+        }
+        else {
+            document.getElementById("cart_count").innerHTML = "";
+        }
+        
     }
 </script>
 </html>

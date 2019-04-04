@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ShoppingCart.Models;
 using ShoppingCart.Filters;
+using System.Diagnostics;
 
 namespace ShoppingCart.Controllers
 {
@@ -23,6 +24,7 @@ namespace ShoppingCart.Controllers
 
             ArrayList productIds = (ArrayList)Session["productIds"];
 
+            
             string productList = "";
 
             if (productIds == null)
@@ -66,6 +68,20 @@ namespace ShoppingCart.Controllers
                      
 
             return View();
+        }
+
+        public ActionResult removeItem(string productid)
+        {
+            ArrayList productIds = (ArrayList)Session["productIds"];
+
+            for (int i = 0; i < productIds.Count; i++)
+            {
+                productIds.Remove(productid);
+            }
+
+            Session["productIds"] = productIds;
+
+            return RedirectToAction("Index");
         }
         
         [AuthenticationFilter]
