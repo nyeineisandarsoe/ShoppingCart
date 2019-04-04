@@ -9,30 +9,36 @@ namespace ShoppingCart.Controllers
 {
     public class LoginController : Controller
     {
-        public ActionResult Main()
+        public ActionResult Index()
         {
             return View();
         }
 
        public ActionResult Authenticate(string Username, string Password)
         {
-            return View();
+            User user = new User();
+            user = user.validateUser(Username, Password);
+
+            if (user.UserId != 0)
+            {
+                Session["UserId"] = user.UserId;
+                Session["UserName"] = user.FirstName;
+
+                return RedirectToAction("Index", "Product");
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "true";
+                return RedirectToAction("Index", "Login");
+            }           
         }
 
-        public ActionResult Logout(string sessionId)
+        public ActionResult Logout()
         {
-            Session["sessionId"] = null;
-            //clear sessionId
-            //clear cart selection
+            Session["UserId"] = null;
+            Session["UserName"] = null;
 
-            return View("Main");
+            return RedirectToAction("Index", "Product");
         }
-
-        public ActionResult InvalidUser()
-        {
-            return View();
-        }
-
-
     }
 }

@@ -6,11 +6,15 @@ using System.Web.Mvc;
 
 namespace ShoppingCart.Controllers
 {
-    public class ActiCodeController : Controller
+    public class HomeController : Controller
     {
-        // GET: ActiCode
+        // GET: Home
         public ActionResult Index()
         {
+            if (Session["UserId"] != null)
+            {
+                ViewBag.Auth = "true";
+            }
             return View();
         }
     }
