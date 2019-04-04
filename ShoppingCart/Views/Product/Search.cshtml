@@ -9,8 +9,14 @@
 
 @Html.Partial("_Search")
 
-<section style="padding-top: 30px;">
+<section style="padding-top: 30px; min-height: 500px;">
     <div class="row">
+        @if (products.Count() == 0)
+        {
+            <div class="alert alert-info alert-dismissible" role="alert" style="margin-top: 20px;">
+                <strong>Information!</strong> No Item Result!
+            </div>
+        }
         @foreach (var product in products)
         {
             <div class="col-sm-6 col-md-3">
