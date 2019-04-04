@@ -15,6 +15,7 @@ namespace ShoppingCart.Controllers
         {
             PurchaseProduct purchaseProduct = new PurchaseProduct();
             ViewBag.Auth = "true";
+            ViewBag.UserName = Session["UserName"];
             ViewData["PurchasedProduct"] = purchaseProduct.ListAll(1); 
             return View();
         }
