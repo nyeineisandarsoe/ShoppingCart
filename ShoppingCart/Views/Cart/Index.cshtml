@@ -126,8 +126,12 @@
     }
 
     function removeSession() {
-        sessionStorage.removeItem("ProductIds");
-        DisplayQuantity();
+
+        if (document.getElementById("auth")) {
+
+            sessionStorage.removeItem("ProductIds");
+            DisplayQuantity();
+        }
     }
 
 </script>
