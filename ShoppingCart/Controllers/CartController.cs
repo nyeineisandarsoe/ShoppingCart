@@ -127,7 +127,7 @@ namespace ShoppingCart.Controllers
 
             Session["ProductIds"] = productIds;
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index");           
         }
         
         [AuthenticationFilter]
