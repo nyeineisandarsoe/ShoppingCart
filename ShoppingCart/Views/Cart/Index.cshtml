@@ -28,7 +28,7 @@
         <a href="~/Product" class="btn btn-primary">Continue Shopping</a>
         @if (products != null && products.Count>0)
         {
-            <a href='/Cart/Checkout' class="btn btn-success">CheckOut</a>
+            <a href='/Cart/Checkout' onclick="removeSession()" class="btn btn-success">CheckOut</a>
         }
         </div>
 </div>
@@ -50,8 +50,7 @@
                             <p class="price">$ <i id="@PriceId@product.ProductId">@product.Price </i> </p>
                             <p>@product.Description</p>
                             <div class="input-group">
-                                @*<span class="input-group-addon">Quantity</span>*@
-                                @*<input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">*@
+                               
                                 <label>Quantity</label>
                                 <button class="btn btn-default" style="border-radius:100%" value="@quantities[product.ProductId.ToString()]" onclick="increaseQty(@product.ProductId, this.value, @QuantityId@product.ProductId, @PriceId@product.ProductId)">+</button>
                                 <label style="padding: 5px;" id="@QuantityId@product.ProductId">@quantities[product.ProductId.ToString()]</label>
@@ -122,6 +121,11 @@
             xhr.send();
         }
 
+    }
+
+    function removeSession() {
+        sessionStorage.removeItem("ProductIds");
+        DisplayQuantity();
     }
 
 </script>
