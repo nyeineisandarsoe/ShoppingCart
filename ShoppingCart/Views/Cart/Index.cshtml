@@ -14,7 +14,7 @@
 <div class="fluid-container">
     <h2>Cart</h2>
     @{double total = 0.0; }
-    @if (products != null)
+    @if (products != null && products.Count > 0)
     {
         foreach (var product in products)
         {
@@ -25,12 +25,15 @@
     <div class="pull-right" style="padding-top: 30px;">
         <h3 style="display: inline-block; padding-right: 20px;">Total: $ <span id="total">@total</span></h3>
         <a href="~/Product" class="btn btn-primary">Continue Shopping</a>
-        <a href='/Cart/Checkout' class="btn btn-success">CheckOut</a>
-    </div>
+        @if (products != null && products.Count>0)
+        {
+            <a href='/Cart/Checkout' class="btn btn-success">CheckOut</a>
+        }
+        </div>
 </div>
 <section style="min-height: 500px;">
     <div class="row" style="padding: 50px 0;" id="cartList">
-        @if (products != null)
+        @if (products != null && products.Count > 0)
         {
             foreach (var product in products)
             {

@@ -128,6 +128,7 @@ namespace ShoppingCart.Controllers
             }
             if (rowsAffected >= 2)
             {
+                Session["ProductIds"] = null;
                 return RedirectToAction("Index", "Purchase");
             }
             return Content("Something Wrong.");
