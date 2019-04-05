@@ -48,7 +48,7 @@
                             <p>@product.Description</p>
                             <div class="input-group">
                                 <span class="input-group-addon">Quantity</span>
-                                <input type="number" class="form-control" min="1" value="@quantities[product.ProductId.ToString()]">
+                                <input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">
                             </div>
                         </div>
                     </div>

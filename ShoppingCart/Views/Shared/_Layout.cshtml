@@ -107,7 +107,7 @@
 
         var xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "Product/AddtoCart?productId=" + val);
+        xhr.open("POST", "./Product/AddtoCart?productId=" + val);
         xhr.send();
 
         DisplayQuantity();
@@ -158,8 +158,21 @@
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "Cart/removeItem?productid=" + id);
         xhr.send();
+    }
 
-        //console.log(filtered.length);
+    function changeQuantity(productid, quantity) {
+
+        var baseElement = document.getElementById(productid);
+        var content_element = baseElement.firstElementChild.lastElementChild;
+        var price_element = content_element.childNodes[2].nextSibling;
+
+
+        if (quantity >= 1) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "Cart/changeQuantity?productid=" + productid + "&quantity=" + quantity);
+            xhr.send();
+        }
+
     }
 </script>
 </html>

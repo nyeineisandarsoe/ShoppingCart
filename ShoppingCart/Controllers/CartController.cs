@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ShoppingCart.Models;
 using ShoppingCart.Filters;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace ShoppingCart.Controllers
 {
@@ -65,6 +66,11 @@ namespace ShoppingCart.Controllers
 
                 ViewData["Quantity"] = dict;
                 ViewData["ProductCart"] = product.ProductCart(productList);
+
+                if(ViewData["ProductCart"] == null || Session["ProductIds"] == null)
+                {
+                    return RedirectToAction("Index, Product");
+                }
             }
                      
 
@@ -78,6 +84,44 @@ namespace ShoppingCart.Controllers
             for (int i = 0; i < productIds.Count; i++)
             {
                 productIds.Remove(productid);
+            }
+
+            Session["ProductIds"] = productIds;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult changeQuantity(string productid, int quantity)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+
+            string[] product_id_array = productIds.ToArray(typeof(string)) as string[];
+
+           
+
+            int count = 0;
+
+            for(int i = 0; i< product_id_array.Length; i++)
+            {
+                if (product_id_array[i] == productid)
+                {
+                    count++;
+                }
+            }
+
+            if(count > quantity)
+            {
+                for (int i = 0; i < count - quantity; i++)
+                {
+                    productIds.Remove(productid);
+                }
+            }
+            else if (count < quantity)
+            {
+                for (int i = 0; i < quantity - count; i++)
+                {
+                    productIds.Add(productid);
+                }
             }
 
             Session["ProductIds"] = productIds;
