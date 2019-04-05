@@ -14,7 +14,7 @@ namespace ShoppingCart.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult Index(string CartSession)
+        public ActionResult Index()
         {
             if (Session["UserId"] != null)
             {
@@ -48,7 +48,7 @@ namespace ShoppingCart.Controllers
                     }
                 }
             }
-             
+
 
             if (productList != "")
             {
@@ -67,13 +67,7 @@ namespace ShoppingCart.Controllers
                 ViewData["Quantity"] = dict;
                 ViewData["ProductCart"] = product.ProductCart(productList);
 
-                if(ViewData["ProductCart"] == null || Session["ProductIds"] == null)
-                {
-                    return RedirectToAction("Index, Product");
-                }
             }
-                     
-
             return View();
         }
 
@@ -91,45 +85,28 @@ namespace ShoppingCart.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult changeQuantity(string productid, int quantity)
+        public ActionResult addQuantity(string productid, int quantity)
         {
             ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            string[] product_id_array = productIds.ToArray(typeof(string)) as string[];
+            productIds.Add(productid);
 
-           
+            Session["ProductIds"] = productIds;
+            
+            return RedirectToAction("Index");
+        }
 
-            int count = 0;
+        public ActionResult reduceQuantity(string productid, int quantity)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            for(int i = 0; i< product_id_array.Length; i++)
-            {
-                if (product_id_array[i] == productid)
-                {
-                    count++;
-                }
-            }
-
-            if(count > quantity)
-            {
-                for (int i = 0; i < count - quantity; i++)
-                {
-                    productIds.Remove(productid);
-
-                }
-            } 
-            else if (count < quantity)
-            {
-                for (int i = 0; i < quantity - count; i++)
-                {
-                    productIds.Add(productid);
-                }
-            }
+            productIds.Remove(productid);
 
             Session["ProductIds"] = productIds;
 
             return RedirectToAction("Index");
         }
-        
+
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {
