@@ -75,9 +75,18 @@ namespace ShoppingCart.Controllers
         {
             ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            for (int i = 0; i < productIds.Count; i++)
+            /*for (int i = 0; i < productIds.Count; i++)
             {
                 productIds.Remove(productid);
+            }*/
+            string[] array = productIds.ToArray(typeof(string)) as string[];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == productid)
+                {
+                    productIds.Remove(productid);
+                }
             }
 
             Session["ProductIds"] = productIds;
