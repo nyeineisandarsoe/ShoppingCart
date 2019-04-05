@@ -107,7 +107,7 @@
 
         var xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "./Product/AddtoCart?productId=" + val);
+        xhr.open("POST", "../Product/AddtoCart?productId=" + val);
         xhr.send();
 
         DisplayQuantity();
@@ -159,15 +159,6 @@
         xhr.open("POST", "../Cart/removeItem?productid=" + id);
 
         xhr.send();
-    }
-
-    function changeQuantity(productid, quantity) {
-
-        if (quantity >= 1) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "../Cart/changeQuantity?productid=" + productid + "&quantity=" + quantity);
-            xhr.send();
-        }
     }
 
 </script>
