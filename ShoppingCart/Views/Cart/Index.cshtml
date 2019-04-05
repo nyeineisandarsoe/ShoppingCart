@@ -21,17 +21,19 @@
             total += product.Price * Convert.ToDouble(quantities[product.ProductId.ToString()]);
         }
     }
-
-
-    <div class="pull-right" style="padding-top: 30px;">
-        <h3 style="display: inline-block; padding-right: 20px;">Total: $ <span id="total">@total</span></h3>
-        <a href="~/Product" class="btn btn-primary">Continue Shopping</a>
-        @if (products != null && products.Count>0)
-        {
-            <a href='/Cart/Checkout' onclick="removeSession()" class="btn btn-success">CheckOut</a>
-        }
+    @if (@ViewBag.Auth == "true")
+    {
+        <input type="hidden" id="auth" value="auth" />
+    }
+        <div class="pull-right" style="padding-top: 30px;">
+            <h3 style="display: inline-block; padding-right: 20px;">Total: $ <span id="total">@total</span></h3>
+            <a href="~/Product" class="btn btn-primary">Continue Shopping</a>
+            @if (products != null && products.Count > 0)
+            {
+                <a href='/Cart/Checkout' onclick="removeSession()" class="btn btn-success">CheckOut</a>
+            }
         </div>
-</div>
+    </div>
 <section style="min-height: 500px;">
     <div class="row" style="padding: 50px 0;" id="cartList">
         @if (products != null && products.Count > 0)
