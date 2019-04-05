@@ -33,19 +33,20 @@ namespace ShoppingCart.Models
                 con.Open();
 
                 SqlCommand cmd = new SqlCommand(SqlProduct, con);
-
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    DateTime purchasedate = Convert.ToDateTime(reader["PurchaseDate"]);
                     product.Add(new PurchaseProduct
                     {
                         ProductName = (reader["ProductName"]).ToString(),
                         Description = (reader["Description"]).ToString(),
                         Image = (reader["Image"]).ToString(),
-                        //Quantity = 1,
-                        Quantity = Convert.ToInt32(reader["Quantity"]),
-                        PurchaseDate = reader["PurchaseDate"].ToString(),
-                        ActivationCode = reader["ActivationCode"].ToString()
+                        Quantity = 1,
+                        //Quantity = Convert.ToInt32(reader["Quantity"]),
+                        PurchaseDate = purchasedate.ToString("MMMM dd, yyyy"),
+                        
+                    ActivationCode = reader["ActivationCode"].ToString()
 
                     });
                 }
