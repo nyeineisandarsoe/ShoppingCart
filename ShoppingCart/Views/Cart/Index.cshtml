@@ -37,6 +37,7 @@
             @foreach (var product in products)
             {
                 <div class="col-sm-6 col-md-3" id="@product.ProductId">
+                    <input type="hidden" value="@quantities[product.ProductId.ToString()]"/>
                     <div class="thumbnail" style="position: relative;">
                         <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;" onclick="removeItem(@product.ProductId);"></span>
                         
