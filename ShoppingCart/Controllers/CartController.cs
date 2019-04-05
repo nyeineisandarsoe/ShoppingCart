@@ -14,7 +14,7 @@ namespace ShoppingCart.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult Index(string CartSession)
+        public ActionResult Index()
         {
             if (Session["UserId"] != null)
             {
@@ -48,7 +48,7 @@ namespace ShoppingCart.Controllers
                     }
                 }
             }
-             
+
 
             if (productList != "")
             {
@@ -67,12 +67,7 @@ namespace ShoppingCart.Controllers
                 ViewData["Quantity"] = dict;
                 ViewData["ProductCart"] = product.ProductCart(productList);
 
-                if(ViewData["ProductCart"] == null || Session["ProductIds"] == null)
-                {
-                    return RedirectToAction("Index, Product");               }
-                }
-                     
-
+            }
             return View();
         }
 
