@@ -129,7 +129,18 @@ namespace ShoppingCart.Controllers
 
             return RedirectToAction("Index");           
         }
-        
+
+        public ActionResult addQuantity(string productid, int quantity)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+
+            productIds.Add(productid);
+
+            Session["ProductIds"] = productIds;
+            
+            return RedirectToAction("Index");
+        }
+
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {

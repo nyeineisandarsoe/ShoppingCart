@@ -165,7 +165,7 @@
 
         if (quantity >= 1) {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", "Cart/changeQuantity?productid=" + productid + "&quantity=" + quantity);
+            xhr.open("POST", "../Cart/changeQuantity?productid=" + productid + "&quantity=" + quantity);
             xhr.send();
         }
     }

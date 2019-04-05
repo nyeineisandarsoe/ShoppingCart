@@ -87,6 +87,10 @@
             sessionStorage.setItem("ProductIds", JSON.stringify(products));
 
             DisplayQuantity();
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../Cart/addQuantity?productid=" + id + "&quantity=" + qty);
+            xhr.send();
         }
 
         function decreaseQty(id, qty, element, priceid) {
