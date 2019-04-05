@@ -114,8 +114,9 @@ namespace ShoppingCart.Controllers
                 for (int i = 0; i < count - quantity; i++)
                 {
                     productIds.Remove(productid);
+
                 }
-            }
+            } 
             else if (count < quantity)
             {
                 for (int i = 0; i < quantity - count; i++)
