@@ -11,6 +11,7 @@ namespace ShoppingCart.Models
         public int PurchaseId { get; set; }
         public int ProductId { get; set; }
         public string ActivitionCode { get; set; }
+        
 
         public int CreatePurchaseProductActivation(int MaxId, int ProductId)
         {
@@ -24,6 +25,26 @@ namespace ShoppingCart.Models
                 SqlCommand cmd = new SqlCommand(sql, con);
                 return cmd.ExecuteNonQuery();
             }
+        }
+
+        public string GetActivationCode(int ProductId, int PurchaseId)
+        {
+            string sql = @"Select ActivationCode From PurchaseProductActivation
+                            where PurchaseId = "+ PurchaseId + " and ProductId = "+ ProductId + ";";
+            SqlConnection con = GetConnection();
+            string activationlist = "";
+
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader data = cmd.ExecuteReader();
+                while (data.Read())
+                {
+                    activationlist += data["ActivationCode"].ToString()+ ",";
+                }
+            }
+            return activationlist;
         }
     }
 }

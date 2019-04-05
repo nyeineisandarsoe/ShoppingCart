@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ShoppingCart.Models;
 using ShoppingCart.Filters;
+using System.Diagnostics;
 
 namespace ShoppingCart.Controllers
 {
@@ -17,11 +18,14 @@ namespace ShoppingCart.Controllers
             if (Session["UserId"] != null)
             {
                 ViewBag.Auth = "true";
+                ViewBag.UserName = Session["UserName"];
             }
+
             Product product = new Product();
 
-            ArrayList productIds = (ArrayList)Session["productIds"];
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
 
+            
             string productList = "";
 
             if (productIds == null)
@@ -39,16 +43,48 @@ namespace ShoppingCart.Controllers
                     }
                     else
                     {
-                        productList += productIds[i - 1] + ", ";
+                        productList += productIds[i - 1] + ",";
                     }
                 }
             }
+             
 
-            ViewData["ProductCart"] = product.ProductCart(productList);
-            
+            if (productList != "")
+            {
+                string[] productIdList = productList.Split(',');
+
+                var dict = new Dictionary<string, int>();
+
+                foreach (var value in productIdList)
+                {
+                    if (dict.ContainsKey(value))
+                        dict[value]++;
+                    else
+                        dict[value] = 1;
+                }
+
+                ViewData["Quantity"] = dict;
+                ViewData["ProductCart"] = product.ProductCart(productList);
+            }
+                     
+
             return View();
         }
 
+        public ActionResult removeItem(string productid)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+
+            for (int i = 0; i < productIds.Count; i++)
+            {
+                productIds.Remove(productid);
+            }
+
+            Session["ProductIds"] = productIds;
+
+            return RedirectToAction("Index");
+        }
+        
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {

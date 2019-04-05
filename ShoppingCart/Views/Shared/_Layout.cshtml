@@ -31,6 +31,10 @@
         .field-validation-error {
             color: #a94442;
         }
+
+        footer {
+            text-align: center;
+        }
     </style>
 
     @Styles.Render("~/Content/css")
@@ -93,7 +97,7 @@
     
     var products = [];
     function AddtoCart(val) {
-        if (sessionStorage.getItem("ProductIds") !== null) {
+        if (JSON.parse(sessionStorage.getItem("ProductIds")) !== null) {
             products = JSON.parse(sessionStorage.getItem("ProductIds"));
         }
 
@@ -111,7 +115,51 @@
 
     function DisplayQuantity() {
         var products = JSON.parse(sessionStorage.getItem("ProductIds"));
-        document.getElementById("cart_count").innerHTML = products.length;
+
+        if (products.length > 0) {
+            document.getElementById("cart_count").innerHTML = products.length;
+        }
+        else {
+            document.getElementById("cart_count").innerHTML = "";
+        }
+        
+    }
+
+    function removeItem(id) {
+
+        var price = document.getElementById("total").innerHTML;
+        var baseElement = document.getElementById(id);
+        var content_element = baseElement.firstElementChild.lastElementChild;
+        var price_element = content_element.childNodes[2].nextSibling;
+        var price = price_element.firstElementChild.innerHTML;
+        var quantity = price_element.nextSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value;
+
+        var substract = price * quantity;
+
+        document.getElementById("total").innerHTML -= substract;
+
+        var element = document.getElementById(id);
+        element.remove();
+
+        var products = JSON.parse(sessionStorage.getItem("ProductIds"));
+
+        if (products !== undefined || products.length > 0) {
+
+            var filtered = products
+                .filter(function (value) {
+                    return value != id;
+                });
+
+            sessionStorage.setItem("ProductIds", JSON.stringify(filtered));
+
+            DisplayQuantity();
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "Cart/removeItem?productid=" + id);
+        xhr.send();
+
+        //console.log(filtered.length);
     }
 </script>
 </html>

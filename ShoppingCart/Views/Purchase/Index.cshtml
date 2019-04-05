@@ -11,6 +11,16 @@
 
 <h2>My Purchases</h2>
 
+@if (@ViewBag.Auth == "true")
+{
+    <span> - Welcome @ViewBag.UserName</span>
+}
+
+<div class="alert alert-primary alert-dismissible" role="alert" style="margin-top: 20px; display: none;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Info!</strong> Successfully Copy to your Clipboard!
+</div>
+
 <section style="padding-top: 30px; min-height: 500px;">
     <div class="row">
         @foreach (var product in products)
@@ -30,23 +40,50 @@
                     <table class="table no-border">
                         <tr>
                             <td style="border-top: 0;">
-                                <b>Purchased On:</b><br />
+                                <b>Purchased On:</b>
+                            </td>
+                            <td style="border-top: 0;">
                                 @product.PurchaseDate
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <b>Quantity:</b><br />
+                                <b>Quantity:</b>
+                            </td>
+                            <td>
                                 @product.Quantity
                             </td>
                         </tr>
                         <tr>
-                            <td><b>Activation Code:</b><br/>
-                            @product.ActivationCode</td>
+                            <td colspan="2">
+                                <b>Activation Code:</b><br />
+                                <select class="form-control" style="padding-left: 0; margin-top: 5px;" id="@product.PurchaseId-@product.ProductId">
+                                    @foreach (var act in @product.ActivationCode)
+                                    {
+                                        <option>@act</option>
+                                    }
+                                </select>
+                            </td>
                         </tr>
                     </table>
+                    <button type="button" class="btn btn-warning pull-right" style="margin-right: 10px;" onclick="copy()" data-act="@product.PurchaseId-@product.ProductId">Copy Code</button>
                 </div>
             </div>
-         }
+        }
     </div>
 </section>
+
+<script>
+    function copy() {
+        var data = event.target.getAttribute("data-act");
+        console.log(data);
+        var myCode = document.getElementById(data).value;
+        var fullLink = document.createElement('input');
+        document.body.appendChild(fullLink);
+        fullLink.value = myCode;
+        fullLink.select();
+        document.execCommand("copy", false);
+        fullLink.remove();
+        alert("Activation code is copied to your Clipboard.");
+    }
+</script>

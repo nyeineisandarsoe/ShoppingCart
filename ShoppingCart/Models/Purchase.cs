@@ -29,7 +29,6 @@ namespace ShoppingCart.Models
         {
             string sql = "Select Max(PurchaseId) as MaxId FROM Purchase;";
             SqlConnection con = GetConnection();
-
             using (con)
             {
                 con.Open();
