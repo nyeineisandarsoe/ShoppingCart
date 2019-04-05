@@ -13,7 +13,7 @@ namespace ShoppingCart.Models
         public double Price { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
-
+        
         public List<Product> ListAll()
         {
             List<Product> products = new List<Product>();
@@ -80,8 +80,8 @@ namespace ShoppingCart.Models
         {
             List<Product> products = new List<Product>();
 
-            string sql1 = "SELECT * FROM Product WHERE ProductName LIKE '%" + keyword + "%';";
-            string sql2 = "SELECT * FROM Product WHERE Description LIKE '%" + keyword + "%';";
+            string sql1 = "SELECT * FROM Product WHERE ProductName LIKE '%" + keyword + "%' OR Description LIKE '%" + keyword + "%';";
+            //string sql2 = "SELECT * FROM Product WHERE Description LIKE '%" + keyword + "%';";
 
 
             SqlConnection con = GetConnection();
@@ -107,7 +107,7 @@ namespace ShoppingCart.Models
                 }
                 data1.Close();
 
-                SqlCommand cmd2 = new SqlCommand(sql2, con);
+                /*SqlCommand cmd2 = new SqlCommand(sql2, con);
                 SqlDataReader data2 = cmd2.ExecuteReader();
                 if (data2.HasRows)
                 {
@@ -123,9 +123,33 @@ namespace ShoppingCart.Models
                         });
                     }
                 }
-                data2.Close();
+                data2.Close();*/
             }
             return products;
+        }
+
+        public Product GetbyId(int ProductId)
+        {
+            Product product = new Product();
+            string sql = @"Select ProductName, Description, Price, Image 
+                        from Product
+                        Where ProductID =" + ProductId;
+            SqlConnection con = GetConnection();
+            using (con)
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader data = cmd.ExecuteReader();
+                if (data.HasRows)
+                {
+                    data.Read();
+                    product.ProductName = data["ProductName"].ToString();
+                    product.Price = Convert.ToInt32(data["Price"]);
+                    product.Image = data["Image"].ToString();
+                    product.Description = data["Description"].ToString();
+                }
+            }
+            return product;
         }
     }
 }
