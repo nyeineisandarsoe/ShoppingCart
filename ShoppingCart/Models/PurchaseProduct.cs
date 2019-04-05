@@ -24,8 +24,9 @@ namespace ShoppingCart.Models
             string sql = @"Select pa.ProductId, p.PurchaseId, p.PurchaseDate, Count(pa.ProductId) as Quantity 
                         from PurchaseProductActivation pa, Purchase p
                         Where pa.PurchaseId = p.PurchaseId
-                        and p.UserId = " + UserId + 
-                        @"Group By p.PurchaseId, p.PurchaseDate, pa.ProductId;";
+                        and p.UserId = " + UserId +
+                        @"Group By p.PurchaseId, p.PurchaseDate, pa.ProductId
+                        Order By p.PurchaseId DESC;";
             SqlConnection con = GetConnection();
             using (con)
             {
@@ -60,5 +61,5 @@ namespace ShoppingCart.Models
             }
             return products;
         }
-    }    
+    }
 }

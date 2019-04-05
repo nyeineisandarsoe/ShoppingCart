@@ -4,20 +4,16 @@
     ViewBag.Title = "Cart";
     ViewBag.ActiveCart = "active";
 }
-
-@{ 
+@{
     var quantities = (Dictionary<string, int>)ViewData["Quantity"];
 }
-
 @{
     var products = (List<Product>)ViewData["ProductCart"];
 
 }
 <div class="fluid-container">
-
     <h2>Cart</h2>
     @{double total = 0.0; }
-
     @if (products != null)
     {
         foreach (var product in products)
@@ -27,40 +23,101 @@
     }
 
     <div class="pull-right" style="padding-top: 30px;">
-        <h3 style="display: inline-block;">Total: $ <span id="total">@total</span></h3>
-        <a href="/Product" class="btn btn-primary">Continue Shopping</a>
-        <a href='/Cart/Checkout?CartSession="5,6"' class="btn btn-success">CheckOut</a>
+        <h3 style="display: inline-block; padding-right: 20px;">Total: $ <span id="total">@total</span></h3>
+        <a href="~/Product" class="btn btn-primary">Continue Shopping</a>
+        <a href='/Cart/Checkout' class="btn btn-success">CheckOut</a>
     </div>
 </div>
-    <section style="min-height: 500px;">
-        
-         
-        <div class="row" style="padding: 50px 0;" id="cartList">
-            @if (products != null)
+<section style="min-height: 500px;">
+    <div class="row" style="padding: 50px 0;" id="cartList">
+        @if (products != null)
+        {
+            foreach (var product in products)
             {
-                foreach (var product in products)
-                {
-                    <div class="col-sm-6 col-md-3" id="@product.ProductId">
+                string QuantityId = "qty";
+                string PriceId = "price";
 
-                        <div class="thumbnail" style="position: relative;">
-                            <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;" onclick="removeItem(@product.ProductId);"></span>
-
-                            <img src="~/@product.Image" alt="Pay Pal">
-                            <div class="caption">
-                                <h3>@product.ProductName</h3>
-                                <p class="price">$ <i>@product.Price </i> </p>
-
-                                <p>@product.Description</p>
-                                <div class="input-group">
-                                    <span class="input-group-addon">Quantity</span>
-                                    <input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">
-                                </div>
+                <div class="col-sm-6 col-md-3" id="@product.ProductId">
+                    <div class="thumbnail" style="position: relative;">
+                        <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;" onclick="removeItem(@product.ProductId);"></span>
+                        <img src="~/@product.Image" alt="Pay Pal">
+                        <div class="caption">
+                            <h3>@product.ProductName</h3>
+                            <p class="price">$ <i id="@PriceId@product.ProductId">@product.Price </i> </p>
+                            <p>@product.Description</p>
+                            <div class="input-group">
+                                @*<span class="input-group-addon">Quantity</span>*@
+                                @*<input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">*@
+                                <label>Quantity</label>
+                                <button class="btn btn-default" style="border-radius:100%" value="@quantities[product.ProductId.ToString()]" onclick="increaseQty(@product.ProductId, this.value, @QuantityId@product.ProductId, @PriceId@product.ProductId)">+</button>
+                                <label style="padding: 5px;" id="@QuantityId@product.ProductId">@quantities[product.ProductId.ToString()]</label>
+                                <button class="btn btn-default" style="border-radius:100%" value="@quantities[product.ProductId.ToString()]" onclick="decreaseQty(@product.ProductId, this.value, @QuantityId@product.ProductId, @PriceId@product.ProductId)">-</button>
                             </div>
                         </div>
                     </div>
+                </div>
+            }
+        }
+    </div>
+
+</section>
+<script>
+
+    var products = [];
+
+    function increaseQty(id, qty, element, priceid) {
+        let val = parseInt(element.innerHTML);
+        element.innerHTML = val + 1;
+
+        let price = parseInt(priceid.innerHTML);
+        document.getElementById("total").innerHTML = parseInt(document.getElementById("total").innerHTML) + parseInt(priceid.innerHTML);
+
+
+        if (JSON.parse(sessionStorage.getItem("ProductIds")) !== null) {
+            products = JSON.parse(sessionStorage.getItem("ProductIds"));
+        }
+
+        products.push(id);
+
+        sessionStorage.setItem("ProductIds", JSON.stringify(products));
+
+        DisplayQuantity();
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../Cart/addQuantity?productid=" + id + "&quantity=" + qty);
+        xhr.send();
+    }
+
+    function decreaseQty(id, qty, element, priceid) {
+        let val = parseInt(element.innerHTML);
+
+        if (val > 1) {
+            element.innerHTML = val - 1;
+
+            let price = parseInt(priceid.innerHTML);
+            document.getElementById("total").innerHTML = parseInt(document.getElementById("total").innerHTML) - parseInt(priceid.innerHTML);
+
+            products = JSON.parse(sessionStorage.getItem("ProductIds"));
+
+            let index = 0;
+
+            for (let i = 0; i < products.length; i++) {
+                if (products[i] == id) {
+                    index = i;
                 }
             }
-            </div>
-                      
-    </section>
 
+            products.splice(index, 1);
+
+            sessionStorage.setItem("ProductIds", JSON.stringify(products));
+
+            DisplayQuantity();
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../Cart/reduceQuantity?productid=" + id + "&quantity=" + qty);
+            xhr.send();
+        }
+
+    }
+
+</script>

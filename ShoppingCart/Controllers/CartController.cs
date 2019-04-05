@@ -26,7 +26,7 @@ namespace ShoppingCart.Controllers
 
             ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            
+
             string productList = "";
 
             if (productIds == null)
@@ -92,7 +92,7 @@ namespace ShoppingCart.Controllers
             productIds.Add(productid);
 
             Session["ProductIds"] = productIds;
-            
+
             return RedirectToAction("Index");
         }
 
@@ -117,7 +117,7 @@ namespace ShoppingCart.Controllers
             int userid = Convert.ToInt32(Session["UserId"]);
             Purchase purchase = new Purchase();
             int rowsAffected = purchase.CreatePurchase(userid);
-            if(rowsAffected >= 1)
+            if (rowsAffected >= 1)
             {
                 PurchaseProductActivation purchaseproductati = new PurchaseProductActivation();
                 int maxid = purchase.GetMaxId();
