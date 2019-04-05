@@ -17,45 +17,49 @@
     <h2>Cart</h2>
     @{double total = 0.0; }
 
-        @foreach (var product in products)
+    @if (products != null)
+    {
+        foreach (var product in products)
         {
             total += product.Price * Convert.ToDouble(quantities[product.ProductId.ToString()]);
         }
-   
-    <h3>Total: $ <span id="total">@total</span></h3>
+    }
 
     <div class="pull-right" style="padding-top: 30px;">
-        <a href="/" class="btn btn-primary">Continue Shopping</a>
+        <h3 style="display: inline-block;">Total: $ <span id="total">@total</span></h3>
+        <a href="/Product" class="btn btn-primary">Continue Shopping</a>
         <a href='/Cart/Checkout?CartSession="5,6"' class="btn btn-success">CheckOut</a>
     </div>
 </div>
-    <section>
+    <section style="min-height: 500px;">
         
          
         <div class="row" style="padding: 50px 0;" id="cartList">
-
-            @foreach (var product in products)
+            @if (products != null)
             {
-                <div class="col-sm-6 col-md-3" id="@product.ProductId">
-                    
-                    <div class="thumbnail" style="position: relative;">
-                        <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;" onclick="removeItem(@product.ProductId);"></span>
-                        
-                        <img src="~/@product.Image" alt="Pay Pal">
-                        <div class="caption">
-                            <h3>@product.ProductName</h3>
-                            <p class="price">$ <i>@product.Price </i> </p>
+                foreach (var product in products)
+                {
+                    <div class="col-sm-6 col-md-3" id="@product.ProductId">
 
-                            <p>@product.Description</p>
-                            <div class="input-group">
-                                <span class="input-group-addon">Quantity</span>
-                                <input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">
+                        <div class="thumbnail" style="position: relative;">
+                            <span class="glyphicon glyphicon-remove" style="position: absolute; right: 10px; top: 10px;" onclick="removeItem(@product.ProductId);"></span>
+
+                            <img src="~/@product.Image" alt="Pay Pal">
+                            <div class="caption">
+                                <h3>@product.ProductName</h3>
+                                <p class="price">$ <i>@product.Price </i> </p>
+
+                                <p>@product.Description</p>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Quantity</span>
+                                    <input type="number" class="form-control" min="1" onchange="changeQuantity(@product.ProductId, this.value);" value="@quantities[product.ProductId.ToString()]">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             }
-        </div>
+            </div>
                       
     </section>
 

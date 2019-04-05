@@ -133,15 +133,16 @@ namespace ShoppingCart.Controllers
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+            string[] array = productIds.ToArray(typeof(string)) as string[];
+            int[] productids = Array.ConvertAll(array, s => int.Parse(s));
+
             int userid = Convert.ToInt32(Session["UserId"]);
             Purchase purchase = new Purchase();
             int rowsAffected = purchase.CreatePurchase(userid);
             if(rowsAffected >= 1)
             {
                 PurchaseProductActivation purchaseproductati = new PurchaseProductActivation();
-                CartSession = "2,3";
-                string[] pids = CartSession.Split(',');
-                int[] productids = pids.Select(int.Parse).ToArray();
                 int maxid = purchase.GetMaxId();
                 foreach (var productid in productids)
                 {
