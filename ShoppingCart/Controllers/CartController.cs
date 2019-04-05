@@ -12,7 +12,7 @@ namespace ShoppingCart.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult Index(string CartSession)
+        public ActionResult Index()
         {
             if (Session["UserId"] != null)
             {
