@@ -61,7 +61,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="@ViewBag.ActiveCart">
-                        <a href="/Cart">
+                        <a href="/Cart/Index">
                             <div style="display: inline-block; position:relative; width: 38px;">
                                 <img src="../images/cart.png" width="30" alt="Cart logo" style="border-radius: 15%; margin-top: -20px; position: absolute;" />
                             </div>Cart <span id="cart_count" class="badge bg-danger"></span>
@@ -156,7 +156,7 @@
         }
          
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Cart/removeItem?productid=" + id);
+        xhr.open("POST", "../Cart/removeItem?productid=" + id);
 
         xhr.send();
     }
@@ -167,7 +167,6 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "Cart/changeQuantity?productid=" + productid + "&quantity=" + quantity);
             xhr.send();
-            location.reload();
         }
     }
 
