@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using ShoppingCart.Models;
 using ShoppingCart.Filters;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace ShoppingCart.Controllers
 {
@@ -25,7 +26,7 @@ namespace ShoppingCart.Controllers
 
             ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            
+
             string productList = "";
 
             if (productIds == null)
@@ -47,7 +48,7 @@ namespace ShoppingCart.Controllers
                     }
                 }
             }
-             
+
 
             if (productList != "")
             {
@@ -65,9 +66,8 @@ namespace ShoppingCart.Controllers
 
                 ViewData["Quantity"] = dict;
                 ViewData["ProductCart"] = product.ProductCart(productList);
-            }
-                     
 
+            }
             return View();
         }
 
@@ -75,28 +75,60 @@ namespace ShoppingCart.Controllers
         {
             ArrayList productIds = (ArrayList)Session["ProductIds"];
 
-            for (int i = 0; i < productIds.Count; i++)
+            /*for (int i = 0; i < productIds.Count; i++)
             {
                 productIds.Remove(productid);
+            }*/
+            string[] array = productIds.ToArray(typeof(string)) as string[];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == productid)
+                {
+                    productIds.Remove(productid);
+                }
             }
 
             Session["ProductIds"] = productIds;
 
             return RedirectToAction("Index");
         }
-        
+
+        public ActionResult addQuantity(string productid, int quantity)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+
+            productIds.Add(productid);
+
+            Session["ProductIds"] = productIds;
+
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult reduceQuantity(string productid, int quantity)
+        {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+
+            productIds.Remove(productid);
+
+            Session["ProductIds"] = productIds;
+
+            return RedirectToAction("Index");
+        }
+
         [AuthenticationFilter]
         public ActionResult Checkout(string CartSession)
         {
+            ArrayList productIds = (ArrayList)Session["ProductIds"];
+            string[] array = productIds.ToArray(typeof(string)) as string[];
+            int[] productids = Array.ConvertAll(array, s => int.Parse(s));
+
             int userid = Convert.ToInt32(Session["UserId"]);
             Purchase purchase = new Purchase();
             int rowsAffected = purchase.CreatePurchase(userid);
-            if(rowsAffected >= 1)
+            if (rowsAffected >= 1)
             {
                 PurchaseProductActivation purchaseproductati = new PurchaseProductActivation();
-                CartSession = "2,3";
-                string[] pids = CartSession.Split(',');
-                int[] productids = pids.Select(int.Parse).ToArray();
                 int maxid = purchase.GetMaxId();
                 foreach (var productid in productids)
                 {
@@ -105,9 +137,11 @@ namespace ShoppingCart.Controllers
             }
             if (rowsAffected >= 2)
             {
+                Session["ProductIds"] = null;
                 return RedirectToAction("Index", "Purchase");
             }
             return Content("Something Wrong.");
+
         }
     }
 }

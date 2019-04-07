@@ -14,8 +14,6 @@ namespace ShoppingCart.Models
         public string UserName { get; set; }
         [Required(ErrorMessage = "Password is Required")]
         public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
 
         public User validateUser(string Username, string Password)
         {
@@ -34,7 +32,7 @@ namespace ShoppingCart.Models
                 {
                     data.Read();
                     user.UserId = Convert.ToInt32(data["UserId"]);
-                    user.FirstName = data["FirstName"].ToString();
+                    user.UserName = data["UserName"].ToString();
                 }
             }
 

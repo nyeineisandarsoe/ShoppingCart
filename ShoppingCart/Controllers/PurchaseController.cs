@@ -16,7 +16,8 @@ namespace ShoppingCart.Controllers
             PurchaseProduct purchaseProduct = new PurchaseProduct();
             ViewBag.Auth = "true";
             ViewBag.UserName = Session["UserName"];
-            ViewData["PurchasedProduct"] = purchaseProduct.ListAll(1); 
+            int userId = Convert.ToInt32(Session["UserId"]);
+            ViewData["PurchasedProduct"] = purchaseProduct.ListAll(userId); 
             return View();
         }
     }

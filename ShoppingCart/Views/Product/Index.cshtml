@@ -1,4 +1,5 @@
 ﻿@using ShoppingCart.Models;
+@using System.Collections;
 @{
     ViewBag.Title = "Gallery";
     ViewBag.ActiveGallery = "active";
@@ -8,7 +9,7 @@
 }
 
 @Html.Partial("_Search")
-
+ 
 <section style="padding-top: 30px;">
     <div class="row">
         @foreach (var product in products)

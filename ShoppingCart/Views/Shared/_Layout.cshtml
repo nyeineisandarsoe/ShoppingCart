@@ -107,7 +107,7 @@
 
         var xhr = new XMLHttpRequest();
 
-        xhr.open("POST", "Product/AddtoCart?productId=" + val);
+        xhr.open("POST", "../Product/AddtoCart?productId=" + val);
         xhr.send();
 
         DisplayQuantity();
@@ -125,18 +125,37 @@
         
     }
 
-    function removeItem(id) {
+    function removeItem(id, qty, price) {
 
-        var price = document.getElementById("total").innerHTML;
-        var baseElement = document.getElementById(id);
-        var content_element = baseElement.firstElementChild.lastElementChild;
-        var price_element = content_element.childNodes[2].nextSibling;
-        var price = price_element.firstElementChild.innerHTML;
-        var quantity = price_element.nextSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value;
+        //var price = document.getElementById("total").innerHTML;
+        //var baseElement = document.getElementById(id);
+        //var content_element = baseElement.firstElementChild.lastElementChild;
+        //var price_element = content_element.childNodes[2].nextSibling;
+        //var price = price_element.firstElementChild.innerHTML;
+        //var quantity = price_element.nextSibling.nextElementSibling.nextElementSibling.firstElementChild.nextElementSibling.value;
 
-        var substract = price * quantity;
+        //var substract = price * quantity;
 
-        document.getElementById("total").innerHTML -= substract;
+        //console.log(substract);
+
+        var total = parseInt(document.getElementById("total").innerHTML);
+
+        var quantity = parseInt(qty.innerHTML);
+
+        var price = parseInt(price.innerHTML);
+        //-= substract;
+
+        var substract = quantity * price;
+
+        var result = total - substract;
+
+        console.log("Total " + total);
+        console.log("Quantity " + quantity);
+        console.log("Price " + price);
+        console.log("Total for item " + substract);
+        console.log("Updated price " + result);
+
+        document.getElementById("total").innerHTML = result;
 
         var element = document.getElementById(id);
         element.remove();
@@ -154,12 +173,12 @@
 
             DisplayQuantity();
         }
-
+         
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "Cart/removeItem?productid=" + id);
-        xhr.send();
+        xhr.open("POST", "../Cart/removeItem?productid=" + id);
 
-        //console.log(filtered.length);
+        xhr.send();
     }
+
 </script>
 </html>
